@@ -25,11 +25,11 @@ const SearchBar = () => {
           onChange={(e) => setArea(e.target.value)}
           className="appearance-none w-full pl-10 pr-8 py-3 rounded-lg border border-gray-300 text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
         >
-          <option value="LPU Area">LPU Area</option>
           <option value="Law Gate">Law Gate</option>
           <option value="Green Valley">Green Valley</option>
-          <option value="Hardaspur">Hardaspur</option>
           <option value="Botany Colony">Botany Colony</option>
+          <option value="Jazzy Properties">Jazzy Properties</option>
+          <option value="Hardaspur">Hardaspur</option>
           <option value="Phagwara">Phagwara</option>
           <option value="Nanak Nagri">Nanak Nagri</option>
           <option value="Jalandhar">Jalandhar</option>

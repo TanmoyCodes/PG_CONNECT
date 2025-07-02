@@ -8,10 +8,28 @@ import {
   Clock,
   Users,
   Cigarette,
-  Handshake, 
   Banknote,
-  MessageSquare, Calendar, Award, PhoneCall
+  MessageSquare, Award, Wifi, Cctv, Snowflake, Lock, ParkingCircle,
+  Zap, Shirt, Plug2, UtilityPole,
+  ChefHat, Armchair, FireExtinguisher, Tv2
 } from 'lucide-react';
+
+
+
+const iconMap = {
+  WiFi: <Wifi size={16} className="text-red-500" />,
+  Cctv: <Cctv size={16} className="text-red-500" />,
+  AC: <Snowflake size={16} className="text-red-500" />,
+  Locker: <Lock size={16} className="text-red-500" />,
+  Parking: <ParkingCircle size={16} className="text-red-500" />,
+  Inverter: <Plug2 size={16} className="text-red-500" />,
+  Laundry: <Shirt size={16} className="text-red-500" />,
+  Kitchen: <ChefHat size={16} className="text-red-500" />,
+  Balcony: <UtilityPole size={16} className="text-red-500" />,
+  Furnished: <Armchair size={16} className="text-red-500" />,
+  TV: <Tv2 size={16} className="text-red-500" />,
+  FireSafety: <FireExtinguisher size={16} className="text-red-500" />,
+};
 
 const PGDetailsPage = () => {
    const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -175,6 +193,42 @@ const prevImage = () =>
               )}
             </div>
 
+          <div className="bg-white p-6 rounded-2xl shadow-lg text-sm text-gray-700">
+            <h2 className="text-2xl font-bold border-b pb-3 mb-5 text-gray-800">Aminities</h2>
+             <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-3">
+  {pg.amenities && Object.entries(pg.amenities).map(([amenity, isAvailable]) => (
+    isAvailable && (
+      <div key={amenity} className="flex items-center space-x-2">
+        {iconMap[amenity]}
+        <span>{amenity}</span>
+      </div>
+    )
+  ))}
+
+  {pg.electricityPerUnit && (
+    <div className="flex items-center space-x-2">
+      <Zap size={16} className="text-red-500" />
+      <span>₹{pg.electricityPerUnit}/Unit</span>
+    </div>
+  )}
+  {pg.distanceFromAuto && (
+    <div className="flex items-center space-x-2">
+      <Car size={16} className="text-red-500" />
+      <span>{pg.distanceFromAuto}m to AutoStand</span>
+    </div>
+  )}
+  {pg.distanceFromCollege && (
+    <div className="flex items-center space-x-2">
+      <School size={16} className="text-red-500" />
+      <span>{pg.distanceFromCollege}m to College</span>
+    </div>
+  )}
+
+  </div>
+</div>
+
+
+
             <div className="bg-white p-6 rounded-2xl shadow-lg">
               <h2 className="text-2xl font-bold mb-5 text-gray-800">What's Included</h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-8">
@@ -290,13 +344,14 @@ const prevImage = () =>
 </a>
 
       <a
-  href="https://wa.me/919863258533"
+  href={`https://wa.me/919863258533?text=${encodeURIComponent(`Hello, I am interested in the *${pg.name}* Pg, *PG ID: ${pg.id_room}* located at *${pg.area}, ${pg.location}.* Please share more details. Here is the link: https://pg-connect-chi.vercel.app/pg/${pg._id}`)}`}
   target="_blank"
   rel="noopener noreferrer"
   className="w-full flex items-center justify-center bg-green-500 font-bold px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-105"
 >
   <MessageSquare className="w-5 h-5 mr-2" /> Chat on WhatsApp
 </a>
+
 
     </div>
   </div>
@@ -320,11 +375,11 @@ const prevImage = () =>
                   <h3 className="text-lg font-bold text-gray-800">Refer a Friend & Save!</h3>
                   <p className="text-gray-600 mt-1">Get upto <span className="font-bold text-green-600">₹500 off</span> your next month's rent when your friend books with us.</p>
                </div>
-               <div className="lg:hidden fixed bottom-5 left-2 right-2 z-50">
+               {/* <div className="lg:hidden fixed bottom-5 left-2 right-2 z-50">
   <button className="w-full flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold px-4 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300">
     <MessageSquare className="w-5 h-5 mr-2" /> I'm Interested
   </button>
-</div>
+</div>*/}
 </aside>
 
         </div>
