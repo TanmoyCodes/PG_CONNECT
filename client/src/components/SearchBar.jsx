@@ -9,9 +9,11 @@ const SearchBar = () => {
   const [price, setPrice] = useState('Any');
 
   const handleSearch = () => {
+    console.log(area,gender,seater,price);
     navigate(
       `/search-results?area=${area}&gender=${gender}&seater=${seater}&price=${price}`
     );
+    console.log(area,gender,seater,price);
   };
 
   return (
