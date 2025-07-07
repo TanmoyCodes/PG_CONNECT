@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ListingCard from "../components/ListingCard";
+import axios from "axios";
 
 
 const SearchResult = () => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const [pgData, setPgData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
   const selectedArea = searchParams.get("area");  // changed from location
   const gender = searchParams.get("gender");
@@ -15,7 +19,7 @@ const SearchResult = () => {
   const filterPGs = () => {
     return pgData
       .filter((pg) => {
-        const matchesArea = selectedArea === "Any" || pg.area === selectedArea;
+        const matchesArea = selectedArea === "LPU Area" || pg.area === selectedArea;
         const matchesGender = gender === "Any" || pg.gender === gender;
         const matchesSeater = seater === "Any" || pg.seater === seater;
 
@@ -40,6 +44,23 @@ const SearchResult = () => {
       });
   };
 
+   useEffect(() => {
+    const fetchPGs = async () => {
+      try {
+        const res = await axios.get(`${apiUrl}/api/v1/pg/allpg`);
+        const data=res.data.data;
+        console.log(data);
+        setPgData(data);
+      } catch (error) {
+        console.error("Error fetching PG listings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPGs();
+  }, []);
+
   const filteredPGs = filterPGs();
 
   return (
@@ -47,8 +68,8 @@ const SearchResult = () => {
       <h2 className="text-3xl font-bold mb-8 text-center">Search Results</h2>
       {filteredPGs.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPGs.map((pg) => (
-            <ListingCard key={pg.id} pg={pg} />
+          {filteredPGs.map((pg,idx) => (
+            <ListingCard key={idx} pg={pg} />
           ))}
         </div>
       ) : (
