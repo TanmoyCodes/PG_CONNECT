@@ -5,6 +5,8 @@ const dotenv = require('dotenv')
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 const DB = require('./src/config/database')
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
 
 app.use(express.json());
 const cors = require('cors');

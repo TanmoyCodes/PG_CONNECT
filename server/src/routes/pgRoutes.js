@@ -16,4 +16,7 @@ router.get("/allpg", PgController.getAllPGs);
 //  api/v1/pg/byid/:id
 router.get("/byid/:id", PgController.getPGById);
 
+// api/v1/pg/upload/img
+router.post('/upload/img',PgController.uploadImageController)
+
 module.exports = router;

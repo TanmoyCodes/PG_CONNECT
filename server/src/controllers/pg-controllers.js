@@ -1,4 +1,5 @@
 const PgModel = require('../models/PgModel');
+const { imageUpload ,multipleImageUpload} = require('../utils/imageUpload');
 
 async function createPG(req, res) {
   try {
@@ -86,9 +87,6 @@ async function createPG(req, res) {
   }
 }
 
-
-
-
 async function getAllPGs(req, res) {
   try {
     const pgs = await PgModel.find();
@@ -115,8 +113,75 @@ async function getPGById(req, res) {
 
 
 
+
+// async function uploadImageController(req,res){
+//   try {
+//     console.log(req.files);
+//     if (!req.files || !req.files.imageFiles) {
+//           return res.status(400).json({
+//             success:false,
+//             message:'file not get from incoming request!!!',
+//             data:{}
+//           })
+//     }
+
+//     const url=await imageUpload(req);
+
+//     res.status(200).json({
+//       success:true,
+//       message:'image uploaded Successfully',
+//       data:{
+//         Url:url
+//       }
+//     });
+
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).json({
+//       success:false,
+//       message:'Internal server Error!!!!!!!!',
+//       data:{}
+//     })
+//   }
+// }
+
+async function uploadImageController(req, res) {
+  try {
+    console.log(req.files);
+
+    if (!req.files || !req.files.imageFiles) {
+      return res.status(400).json({
+        success: false,
+        message: 'No image files received from the request!',
+        data: {}
+      });
+    }
+
+    const urls = await multipleImageUpload(req);
+
+    res.status(200).json({
+      success: true,
+      message: 'Images uploaded successfully!',
+      data: {
+        urls
+      }
+    });
+
+  } catch (error) {
+    console.log("Upload Controller Error:", error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Internal Server Error',
+      data: {}
+    });
+  }
+}
+
+
+
 module.exports = {
   getAllPGs,
   getPGById,
-  createPG
+  createPG,
+  uploadImageController
 };
