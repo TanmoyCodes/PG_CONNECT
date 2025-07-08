@@ -15,8 +15,8 @@ const FeaturedPGs = () => {
         try {
           setLoading(true);
           const res = await axios.get(`${apiUrl}/api/v1/pg/allpg`)
-          const data=await res.data.data;
-          setPgData(data.json());
+          const data=res.data.data;
+          setPgData(data);
           setLoading(false);
         } catch (error) {
           console.error("Error fetching PG listings:", error);
