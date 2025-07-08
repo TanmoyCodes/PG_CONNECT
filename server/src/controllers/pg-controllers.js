@@ -1,9 +1,8 @@
 const PgModel = require('../models/PgModel');
-const mongoose = require("mongoose");
 const { imageUpload ,multipleImageUpload} = require('../utils/imageUpload');
+
+
 async function createPG(req, res) {
-  const session = await mongoose.startSession();
-  session.startTransaction();
 
   try {
     console.log("🔥 POST /pg/create called");
@@ -44,8 +43,6 @@ async function createPG(req, res) {
     console.log(req.files);
 
     if (!req.files || !req.files.imageFiles) {
-      await session.abortTransaction();
-      session.endSession();
       return res.status(400).json({
         success: false,
         message: 'No image files received from the request!',
@@ -53,7 +50,7 @@ async function createPG(req, res) {
       });
     }
 
-    // 🖼️ Upload Images (outside DB, not transactional)
+    // 🖼️ Upload Images
     const urls = await multipleImageUpload(req);
 
     const newPG = new PgModel({
@@ -90,12 +87,7 @@ async function createPG(req, res) {
       commission,
     });
 
-    // 💾 Save PG listing inside transaction
-    await newPG.save({ session });
-
-    // ✅ All good: Commit
-    await session.commitTransaction();
-    session.endSession();
+    await newPG.save();
 
     res.status(201).json({
       message: 'PG listing created successfully',
@@ -104,10 +96,6 @@ async function createPG(req, res) {
     });
 
   } catch (error) {
-    // ❌ On failure: Rollback and cleanup
-    await session.abortTransaction();
-    session.endSession();
-
     console.error('❌ Error creating PG:', error.message);
 
     res.status(500).json({

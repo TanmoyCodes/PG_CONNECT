@@ -16,9 +16,9 @@ export default function App() {
   // Initial state for the form, matching the provided schema
   const initialState = {
     name: "",
-    images: [], // This will now store the final uploaded image URLs
+    ImageFiles: [], // This will now store the final uploaded image URLs
     area: "Law Gate", // Set a default for the dropdown
-    location: "",
+    location: "", 
     rent: "",
     seater: "Single",
     gender: "Any",
@@ -63,7 +63,7 @@ export default function App() {
 
   const [formData, setFormData] = useState(initialState);
   // State to manage file previews, upload status, etc.
-  const [imageUploads, setImageUploads] = useState([{ id: Date.now(), file: null, preview: null, isLoading: false, isUploaded: false, error: null }]);
+  const [imageUploads, setImageUploads] = useState([{ id: Date.now(), file: null, preview: null, error: null }]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
@@ -88,29 +88,16 @@ export default function App() {
     }
   };
 
-  const handleFileSelect = async (id, file) => {
+  const handleFileSelect = (id, file) => {
     if (!file) return;
-
-    // Create a local preview URL
     const previewUrl = URL.createObjectURL(file);
-    setImageUploads(prev => prev.map(up => up.id === id ? { ...up, file, preview: previewUrl, isLoading: true, error: null } : up));
-
-    // Start the upload process
-    try {
-        const uploadedFile = await uploadToImageKit(file);
-        // On success, update the form data with the final URL
-        const finalUrl = uploadedFile.url;
-
-        setImageUploads(prev => prev.map(up => up.id === id ? { ...up, isLoading: false, isUploaded: true } : up));
-        
-        // Add the final URL to our main form state
-        setFormData(prev => ({ ...prev, images: [...prev.images, finalUrl] }));
-
-    } catch (error) {
-        console.error("Upload failed:", error);
-        setImageUploads(prev => prev.map(up => up.id === id ? { ...up, isLoading: false, error: 'Upload failed. Please try again.' } : up));
-    }
+    setImageUploads(prev =>
+      prev.map(up =>
+        up.id === id ? { ...up, file, preview: previewUrl, error: null } : up
+      )
+    );
   };
+
   
   // This function simulates uploading a file to ImageKit
   const uploadToImageKit = async (file) => {
@@ -129,48 +116,65 @@ export default function App() {
 
 
   const addImageField = () => {
-    setImageUploads(prev => [...prev, { id: Date.now(), file: null, preview: null, isLoading: false, isUploaded: false, error: null }]);
+    setImageUploads(prev => [
+      ...prev,
+      { id: Date.now(), file: null, preview: null, error: null }
+    ]);
   };
 
+
   const removeImageField = (id) => {
-    const uploadToRemove = imageUploads.find(up => up.id === id);
-    // Find the corresponding URL in formData.images using the filename, if it exists
-    if (uploadToRemove && uploadToRemove.file) {
-      const urlToRemove = formData.images.find(url => url.includes(uploadToRemove.file.name));
-      if(urlToRemove) {
-        setFormData(prev => ({...prev, images: prev.images.filter(url => url !== urlToRemove)}));
-      }
-    }
     setImageUploads(prev => prev.filter(up => up.id !== id));
   };
+
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // MODIFICATION: Check if at least one image has been successfully uploaded
-    if (formData.images.length === 0) {
-        alert("Please upload at least one image before submitting.");
-        return;
+    // ✅ Validate at least one image selected
+    const selectedFiles = imageUploads.map(up => up.file).filter(Boolean);
+    if (selectedFiles.length === 0) {
+      alert("Please upload at least one image.");
+      return;
     }
-    
-    if (imageUploads.some(up => up.isLoading)) {
-        alert("Please wait for all images to finish uploading.");
-        return;
+
+    const form = new FormData();
+
+    // Append non-image fields
+    for (let key in formData) {
+      if (typeof formData[key] === "object") {
+        form.append(key, JSON.stringify(formData[key])); // For nested objects like amenities
+      } else {
+        form.append(key, formData[key]);
+      }
     }
-    
-    setIsSubmitting(true);
-    
-    // The formData state already contains the final URLs
-    const finalDataObject = { ...formData };
-    
-    // Simulate API submission
-    console.log("SUBMITTING FINAL DATA OBJECT:", JSON.stringify(finalDataObject, null, 2));
-    await new Promise(res => setTimeout(res, 1000));
-    
-    setIsSubmitting(false);
-    alert("Form submitted successfully! Check the console for the final data object.");
+
+    // ✅ Append images
+    selectedFiles.forEach(file => {
+      form.append("imageFiles", file); // Must match backend field name
+    });
+
+    try {
+      const res = await fetch("http://localhost:4000/api/v1/pg/createpg", {
+        method: "POST",
+        body: form,
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert("PG created successfully!");
+        setFormData(initialState);
+        setImageUploads([{ id: Date.now(), file: null, preview: null, error: null }]);
+      } else {
+        alert(data.message || "Something went wrong!");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Failed to submit.");
+    }
   };
+
   
   
   // --- UI COMPONENTS ---

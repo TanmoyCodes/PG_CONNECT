@@ -4,8 +4,8 @@ const router = express.Router();
 const PgController = require("../controllers/pg-controllers");
 
 // Route to create a new PG
-//  api/v1/pg/create
-router.post("/create", PgController.createPG);
+//  api/v1/pg/createpg
+router.post("/createpg", PgController.createPG);
 
 // Existing route (get all PGs)
 //  api/v1/pgallpg
