@@ -107,6 +107,7 @@ async function createPG(req, res) {
 
 async function getAllPGs(req, res) {
   try {
+    
     const pgs = await PgModel.find();
     res.status(200).json({message: 'PGs fetched successfully', data: pgs,success: true});
   } catch (error) {
