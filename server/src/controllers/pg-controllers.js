@@ -5,7 +5,6 @@ const { imageUpload ,multipleImageUpload} = require('../utils/imageUpload');
 async function createPG(req, res) {
 
   try {
-    console.log("🔥 POST /pg/create called");
 
     const {
       id_room,
@@ -40,7 +39,6 @@ async function createPG(req, res) {
       commission,
     } = req.body;
 
-    console.log(req.files);
 
     if (!req.files || !req.files.imageFiles) {
       return res.status(400).json({
@@ -64,8 +62,9 @@ async function createPG(req, res) {
       gender,
       isFeatured,
       soldOut,
-      amenities,
-      whatsIncluded,
+      amenities: JSON.parse(amenities),          // ✅ parsed back to object
+      whatsIncluded: JSON.parse(whatsIncluded),  // ✅
+      houseRules: JSON.parse(houseRules),        // ✅
       floor,
       roomNo,
       distanceFromAuto,
@@ -81,11 +80,11 @@ async function createPG(req, res) {
       description,
       note,
       isPublished,
-      houseRules,
       listingDate,
       listedBy,
       commission,
     });
+
 
     await newPG.save();
 

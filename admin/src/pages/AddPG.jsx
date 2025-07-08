@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { PlusCircle, Trash2, BedDouble, User, Building, Landmark, Ruler, Coins, Zap , Clock, Calendar, UserCog, Bot, IndianRupee, UploadCloud, Loader2, CheckCircle2 } from 'lucide-react';
 
-
-// --- ImageKit Configuration ---
-// IMPORTANT: Replace these with your actual ImageKit details.
-// You should get the signature and expire timestamp from a secure backend endpoint.
-const IMAGEKIT_PUBLIC_KEY = "your_public_api_key"; // Replace with your ImageKit public key
-const IMAGEKIT_URL_ENDPOINT = "https://upload.imagekit.io/api/v1/files/upload";
-// In a real app, this should be a secure endpoint on your server that returns a signature.
-const IMAGEKIT_AUTHENTICATION_ENDPOINT = "http://localhost:3001/auth"; // Example backend endpoint
-
-
+import axios from 'axios'
 // Main App Component
 export default function App() {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   // Initial state for the form, matching the provided schema
   const initialState = {
     name: "",
@@ -68,7 +60,6 @@ export default function App() {
 
 
   // --- HANDLER FUNCTIONS ---
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -91,43 +82,15 @@ export default function App() {
   const handleFileSelect = (id, file) => {
     if (!file) return;
     const previewUrl = URL.createObjectURL(file);
-    setImageUploads(prev =>
-      prev.map(up =>
-        up.id === id ? { ...up, file, preview: previewUrl, error: null } : up
-      )
-    );
+    setImageUploads(prev =>prev.map(up =>
+                              up.id === id ? { ...up, file, preview: previewUrl, error: null } : up
+                            ));
+    };
+
+   const addImageField = () => {setImageUploads(prev => [...prev,{ id: Date.now(), file: null, preview: null, error: null }]);
   };
 
-  
-  // This function simulates uploading a file to ImageKit
-  const uploadToImageKit = async (file) => {
-    // This is a mock function. In a real application, you would have your full
-    // authenticated upload logic here.
-    
-    console.log("Simulating upload for:", file.name);
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-
-    // Return a mock response for demonstration purposes
-    return Promise.resolve({
-      url: `https://ik.imagekit.io/your_imagekit_id/mock-uploads/${file.name}`, // Example URL
-      thumbnailUrl: `https://ik.imagekit.io/your_imagekit_id/tr:n-media_library_thumbnail/mock-uploads/${file.name}`,
-    });
-  };
-
-
-  const addImageField = () => {
-    setImageUploads(prev => [
-      ...prev,
-      { id: Date.now(), file: null, preview: null, error: null }
-    ]);
-  };
-
-
-  const removeImageField = (id) => {
-    setImageUploads(prev => prev.filter(up => up.id !== id));
-  };
-
-
+  const removeImageField = (id) => {setImageUploads(prev => prev.filter(up => up.id !== id));};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -156,12 +119,10 @@ export default function App() {
     });
 
     try {
-      const res = await fetch("http://localhost:4000/api/v1/pg/createpg", {
-        method: "POST",
-        body: form,
-      });
+      const res = await axios.post(`${apiUrl}/api/v1/pg/createpg`, form);
 
-      const data = await res.json();
+      const data =res.data;
+      console.log(data);
       if (data.success) {
         alert("PG created successfully!");
         setFormData(initialState);

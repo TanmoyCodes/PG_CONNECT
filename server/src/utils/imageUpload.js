@@ -51,9 +51,9 @@ async function imageUpload(file, existingImageUrl) {
         const supportedTypes = ["jpg", "jpeg", "png"];
         const fileType = file.name.split('.').pop().toLowerCase();
 
-        if (!isFileTypeSupported(fileType, supportedTypes)) {
-            throw new Error("Image format not supported.");
-        }
+        // if (!isFileTypeSupported(fileType, supportedTypes)) {
+        //     throw new Error("Image format not supported.");
+        // }
 
         if (existingImageUrl) {
             await deleteFileFromImageKit(existingImageUrl);

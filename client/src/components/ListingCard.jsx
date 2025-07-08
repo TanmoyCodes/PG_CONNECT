@@ -40,6 +40,7 @@ const ListingCard = ({ pg }) => {
   // Get amenities as array of keys where value is true
   const activeAmenities = Object.keys(pg.amenities).filter(key => pg.amenities[key]);
 
+
   return (
     <Link to={`/pg/${pg._id}`} className="block group">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden transform group-hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col">
@@ -126,6 +127,7 @@ const ListingCard = ({ pg }) => {
                 <span>{amenity}</span>
               </div>
             ))}
+
             {pg.electricityPerUnit && (
               <div className="flex items-center space-x-2">
                 <Zap size={16} className="text-red-500" />
