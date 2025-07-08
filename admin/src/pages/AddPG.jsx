@@ -1,16 +1,64 @@
-import React, { useState, useEffect } from 'react';
-import { PlusCircle, Trash2, BedDouble, User, Building, Landmark, Ruler, Coins, Zap , Clock, Calendar, UserCog, Bot, IndianRupee, UploadCloud, Loader2, CheckCircle2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { PlusCircle, Trash2, BedDouble, User, Building, Landmark, Ruler, Coins, Zap, Clock, Calendar, UserCog, Bot, IndianRupee, UploadCloud, Loader2, CheckCircle2 } from 'lucide-react';
+import axios from 'axios';
 
-import axios from 'axios'
+// --- UI COMPONENTS (Moved Outside of App) ---
+
+// InputField Component
+const InputField = ({ id, label, icon, ...props }) => (
+  <div>
+    <label htmlFor={id} className="block text-sm font-medium text-gray-600 mb-1">{label}{props.required && <span className="text-red-500">*</span>}</label>
+    <div className="relative">
+      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">{icon}</span>
+      <input id={id} className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" {...props} />
+    </div>
+  </div>
+);
+
+// SelectField Component
+const SelectField = ({ id, label, icon, children, ...props }) => (
+  <div>
+   <label htmlFor={id} className="block text-sm font-medium text-gray-600 mb-1">{label}{props.required && <span className="text-red-500">*</span>}</label>
+   <div className="relative">
+     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">{icon}</span>
+     <select id={id} className="block w-full pl-10 pr-3 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" {...props}>{children}</select>
+   </div>
+ </div>
+);
+
+// Checkbox Group Rendering Function
+// Note: handleCheckboxChange needs to be passed in as a prop now.
+const renderCheckboxGroup = (title, data, section, handleCheckboxChange) => (
+    <div className="p-6 bg-white rounded-xl shadow-md">
+      <h3 className="text-xl font-semibold text-gray-800 mb-4">{title}</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {Object.keys(data).map(key => (
+          <label key={key} className="flex items-center space-x-2 text-gray-700 cursor-pointer">
+            <input
+              type="checkbox"
+              name={key}
+              checked={data[key]}
+              onChange={handleCheckboxChange} // Use the passed-in handler
+              data-section={section}
+              className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            />
+            <span className="capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+);
+
+
 // Main App Component
 export default function App() {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
-  // Initial state for the form, matching the provided schema
+
   const initialState = {
     name: "",
-    ImageFiles: [], // This will now store the final uploaded image URLs
-    area: "Law Gate", // Set a default for the dropdown
-    location: "", 
+    ImageFiles: [],
+    area: "Law Gate",
+    location: "",
     rent: "",
     seater: "Single",
     gender: "Any",
@@ -48,14 +96,13 @@ export default function App() {
       smokingAllowed: false,
       coupleFriendly: false
     },
-    listingDate: new Date().toISOString().split('T')[0], // Auto-sets to current date
+    listingDate: new Date().toISOString().split('T')[0],
     listedBy: "",
     commission: ""
   };
 
   const [formData, setFormData] = useState(initialState);
-  // State to manage file previews, upload status, etc.
-  const [imageUploads, setImageUploads] = useState([{ id: Date.now(), file: null, preview: null, error: null }]);
+  const [imageUploads, setImageUploads] = useState([{ id: Date.now(), file: null, preview: null, error: null, isLoading: false, isUploaded: false }]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
@@ -82,96 +129,70 @@ export default function App() {
   const handleFileSelect = (id, file) => {
     if (!file) return;
     const previewUrl = URL.createObjectURL(file);
-    setImageUploads(prev =>prev.map(up =>
-                              up.id === id ? { ...up, file, preview: previewUrl, error: null } : up
-                            ));
-    };
-
-   const addImageField = () => {setImageUploads(prev => [...prev,{ id: Date.now(), file: null, preview: null, error: null }]);
+    setImageUploads(prev => prev.map(up =>
+      up.id === id ? { ...up, file, preview: previewUrl, error: null } : up
+    ));
   };
 
-  const removeImageField = (id) => {setImageUploads(prev => prev.filter(up => up.id !== id));};
+  const addImageField = () => {
+    setImageUploads(prev => [...prev, { id: Date.now(), file: null, preview: null, error: null, isLoading: false, isUploaded: false }]);
+  };
+
+  const removeImageField = (id) => {
+    setImageUploads(prev => prev.filter(up => up.id !== id));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ Validate at least one image selected
     const selectedFiles = imageUploads.map(up => up.file).filter(Boolean);
     if (selectedFiles.length === 0) {
       alert("Please upload at least one image.");
       return;
     }
 
-    const form = new FormData();
+    setIsSubmitting(true);
 
-    // Append non-image fields
+    const form = new FormData();
+    selectedFiles.forEach(file => {
+      form.append("imageFiles", file);
+    });
+
+    // Append other form data, stringifying nested objects
     for (let key in formData) {
-      if (typeof formData[key] === "object") {
-        form.append(key, JSON.stringify(formData[key])); // For nested objects like amenities
-      } else {
-        form.append(key, formData[key]);
+      if (key !== 'ImageFiles') { // Avoid appending the empty ImageFiles array
+          if (typeof formData[key] === "object" && formData[key] !== null) {
+            form.append(key, JSON.stringify(formData[key]));
+          } else {
+            form.append(key, formData[key]);
+          }
       }
     }
 
-    // ✅ Append images
-    selectedFiles.forEach(file => {
-      form.append("imageFiles", file); // Must match backend field name
-    });
-
     try {
-      const res = await axios.post(`${apiUrl}/api/v1/pg/createpg`, form);
+      const res = await axios.post(`${apiUrl}/api/v1/pg/createpg`, form, {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }
+      });
 
-      const data =res.data;
+      const data = res.data;
       console.log(data);
       if (data.success) {
         alert("PG created successfully!");
         setFormData(initialState);
-        setImageUploads([{ id: Date.now(), file: null, preview: null, error: null }]);
+        setImageUploads([{ id: Date.now(), file: null, preview: null, error: null, isLoading: false, isUploaded: false }]);
       } else {
         alert(data.message || "Something went wrong!");
       }
     } catch (err) {
       console.error("Error:", err);
-      alert("Failed to submit.");
+      const errorMessage = err.response?.data?.message || "Failed to submit.";
+      alert(errorMessage);
+    } finally {
+        setIsSubmitting(false);
     }
   };
-
-  
-  
-  // --- UI COMPONENTS ---
-  const InputField = ({ id, label, icon, ...props }) => (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-gray-600 mb-1">{label}{props.required && <span className="text-red-500">*</span>}</label>
-      <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">{icon}</span>
-        <input id={id} className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" {...props} />
-      </div>
-    </div>
-  );
-  
-  const SelectField = ({ id, label, icon, children, ...props }) => (
-    <div>
-     <label htmlFor={id} className="block text-sm font-medium text-gray-600 mb-1">{label}{props.required && <span className="text-red-500">*</span>}</label>
-     <div className="relative">
-       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">{icon}</span>
-       <select id={id} className="block w-full pl-10 pr-3 py-2 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" {...props}>{children}</select>
-     </div>
-   </div>
-  );
-  
-  const renderCheckboxGroup = (title, data, section) => (
-    <div className="p-6 bg-white rounded-xl shadow-md">
-      <h3 className="text-xl font-semibold text-gray-800 mb-4">{title}</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {Object.keys(data).map(key => (
-          <label key={key} className="flex items-center space-x-2 text-gray-700 cursor-pointer">
-            <input type="checkbox" name={key} checked={data[key]} onChange={handleCheckboxChange} data-section={section} className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"/>
-            <span className="capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
-          </label>
-        ))}
-      </div>
-    </div>
-  );
 
   return (
     <div className="bg-gray-50 min-h-screen font-sans">
@@ -187,16 +208,15 @@ export default function App() {
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                <InputField id="name" name="name" label="Property Name" value={formData.name} onChange={handleChange} placeholder="e.g., Sunrise PG" required icon={<Building size={18}/>} />
                
-               {/* MODIFICATION: Area is now a dropdown */}
                <SelectField id="area" name="area" label="Area" value={formData.area} onChange={handleChange} required icon={<Landmark size={18}/>}>
-                    <option value="Law Gate">Law Gate</option>
-                    <option value="Green Valley">Green Valley</option>
-                    <option value="Botany Colony">Botany Colony</option>
-                    <option value="Jazzy Properties">Jazzy Properties</option>
-                    <option value="Hardaspur">Hardaspur</option>
-                    <option value="Phagwara">Phagwara</option>
-                    <option value="Nanak Nagri">Nanak Nagri</option>
-                    <option value="Jalandhar">Jalandhar</option>
+                   <option value="Law Gate">Law Gate</option>
+                   <option value="Green Valley">Green Valley</option>
+                   <option value="Botany Colony">Botany Colony</option>
+                   <option value="Jazzy Properties">Jazzy Properties</option>
+                   <option value="Hardaspur">Hardaspur</option>
+                   <option value="Phagwara">Phagwara</option>
+                   <option value="Nanak Nagri">Nanak Nagri</option>
+                   <option value="Jalandhar">Jalandhar</option>
                </SelectField>
 
                <InputField id="location" name="location" label="Location/City" value={formData.location} onChange={handleChange} placeholder="e.g., LPU, Jalandhar" required icon={<Landmark size={18}/>} />
@@ -262,24 +282,24 @@ export default function App() {
                 </div>
               ))}
                <button 
-                type="button" 
-                onClick={addImageField} 
-                className="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-50 hover:text-indigo-600 transition-colors"
-                title="Add another image"
+                 type="button" 
+                 onClick={addImageField} 
+                 className="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-50 hover:text-indigo-600 transition-colors"
+                 title="Add another image"
                >
-                  <PlusCircle size={32} />
-              </button>
+                 <PlusCircle size={32} />
+               </button>
             </div>
              <p className="text-xs text-gray-500 mt-4">At least one image is required. Click on the placeholder to select a file.</p>
           </div>
           
-          {renderCheckboxGroup("Amenities", formData.amenities, "amenities")}
-          {renderCheckboxGroup("What's Included", formData.whatsIncluded, "whatsIncluded")}
+          {/* Now pass the handler function to the render function */}
+          {renderCheckboxGroup("Amenities", formData.amenities, "amenities", handleCheckboxChange)}
+          {renderCheckboxGroup("What's Included", formData.whatsIncluded, "whatsIncluded", handleCheckboxChange)}
           
           <div className="p-6 bg-white rounded-xl shadow-md">
              <h3 className="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">Room & Location Details</h3>
              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {/* MODIFICATION: Added `required` prop */}
                <InputField id="floor" name="floor" type="number" label="Floor" value={formData.floor} onChange={handleChange} placeholder="e.g., 2" required icon={<Building size={18}/>} />
                <InputField id="roomNo" name="roomNo" type="text" label="Room No" value={formData.roomNo} onChange={handleChange} placeholder="e.g., 101" required icon={<BedDouble size={18}/>} />
                <InputField id="distanceFromAuto" name="distanceFromAuto" type="number" label="Auto Stand (m)" value={formData.distanceFromAuto} onChange={handleChange} placeholder="e.g., 300" required icon={<Ruler size={18}/>} />
@@ -291,7 +311,6 @@ export default function App() {
           <div className="p-6 bg-white rounded-xl shadow-md">
              <h3 className="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">Contact Details</h3>
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* MODIFICATION: Added `required` prop */}
                <InputField id="ownerName" name="ownerName" label="Owner Name" value={formData.ownerName} onChange={handleChange} placeholder="Rajesh Kumar" required icon={<User size={18}/>}/>
                <InputField id="ownerNumber" name="ownerNumber" type="tel" label="Owner Number" value={formData.ownerNumber} onChange={handleChange} placeholder="9876543210" required icon={<User size={18}/>}/>
                <InputField id="caretakerName" name="caretakerName" label="Caretaker Name" value={formData.caretakerName} onChange={handleChange} placeholder="Suresh" required icon={<UserCog size={18}/>}/>
@@ -301,21 +320,21 @@ export default function App() {
 
           <div className="p-6 bg-white rounded-xl shadow-md space-y-4">
              <h3 className="text-xl font-semibold text-gray-800 mb-2 border-b pb-3">Descriptions</h3>
-              <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-600 mb-1">Property Description</label>
-                <textarea id="description" name="description" rows="4" value={formData.description} onChange={handleChange} className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500" placeholder="A brief description of the property..."></textarea>
-              </div>
-              <div>
-                <label htmlFor="note" className="block text-sm font-medium text-gray-600 mb-1">Internal Note (optional)</label>
-                <textarea id="note" name="note" rows="2" value={formData.note} onChange={handleChange} className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500" placeholder="Any internal notes..."></textarea>
-              </div>
+             <div>
+               <label htmlFor="description" className="block text-sm font-medium text-gray-600 mb-1">Property Description</label>
+               <textarea id="description" name="description" rows="4" value={formData.description} onChange={handleChange} className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500" placeholder="A brief description of the property..."></textarea>
+             </div>
+             <div>
+               <label htmlFor="note" className="block text-sm font-medium text-gray-600 mb-1">Internal Note (optional)</label>
+               <textarea id="note" name="note" rows="2" value={formData.note} onChange={handleChange} className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500" placeholder="Any internal notes..."></textarea>
+             </div>
           </div>
 
           <div className="p-6 bg-white rounded-xl shadow-md">
             <h3 className="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">House Rules & Policies</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <InputField id="gateOpenTime" name="gateOpenTime" type="time" label="Gate Open Time" value={formData.houseRules.gateOpenTime} onChange={(e) => setFormData(prev => ({...prev, houseRules: {...prev.houseRules, gateOpenTime: e.target.value }}))} icon={<Clock size={18}/>} />
-                <InputField id="gateCloseTime" name="gateCloseTime" type="time" label="Gate Close Time" value={formData.houseRules.gateCloseTime} onChange={(e) => setFormData(prev => ({...prev, houseRules: {...prev.houseRules, gateCloseTime: e.target.value }}))} icon={<Clock size={18}/>} />
+              <InputField id="gateOpenTime" name="gateOpenTime" type="time" label="Gate Open Time" value={formData.houseRules.gateOpenTime} onChange={(e) => setFormData(prev => ({...prev, houseRules: {...prev.houseRules, gateOpenTime: e.target.value }}))} icon={<Clock size={18}/>} />
+              <InputField id="gateCloseTime" name="gateCloseTime" type="time" label="Gate Close Time" value={formData.houseRules.gateCloseTime} onChange={(e) => setFormData(prev => ({...prev, houseRules: {...prev.houseRules, gateCloseTime: e.target.value }}))} icon={<Clock size={18}/>} />
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 <label className="flex items-center space-x-2 text-gray-700 cursor-pointer">
@@ -362,7 +381,7 @@ export default function App() {
                 type="submit" 
                 className="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/50 transform transition-all duration-150 ease-in-out hover:scale-105 disabled:opacity-75 disabled:scale-100 flex items-center justify-center"
                 disabled={isSubmitting || imageUploads.some(i => i.isLoading)}
-               >
+              >
                 {isSubmitting ? <Loader2 className="animate-spin mr-2" /> : null}
                 {isSubmitting ? 'Submitting...' : 'Create Listing'}
             </button>
