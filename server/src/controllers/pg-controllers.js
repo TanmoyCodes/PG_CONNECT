@@ -143,8 +143,6 @@ async function getPGById(req, res) {
 }
 
 
-
-
 // async function uploadImageController(req,res){
 //   try {
 //     console.log(req.files);
