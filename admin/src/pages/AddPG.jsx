@@ -60,6 +60,7 @@ export default function App() {
     area: "Law Gate",
     location: "",
     rent: "",
+    securityAmount: "",
     seater: "Single",
     gender: "Any",
     isFeatured: false,
@@ -86,7 +87,7 @@ export default function App() {
     ownerNumber: "",
     caretakerName: "",
     caretakerNumber: "",
-    description: "",
+    description: "A nice PG located in a prime area with all amenities included.",
     note: "",
     isPublished: true,
     houseRules: {
@@ -305,6 +306,7 @@ export default function App() {
                <InputField id="distanceFromAuto" name="distanceFromAuto" type="number" label="Auto Stand (m)" value={formData.distanceFromAuto} onChange={handleChange} placeholder="e.g., 300" required icon={<Ruler size={18}/>} />
                <InputField id="distanceFromCollege" name="distanceFromCollege" type="number" label="College (m)" value={formData.distanceFromCollege} onChange={handleChange} placeholder="e.g., 500" required icon={<Ruler size={18}/>} />
                <InputField id="electricityPerUnit" name="electricityPerUnit" type="number" label="Electricity / Unit" value={formData.electricityPerUnit} onChange={handleChange} placeholder="e.g., 10" required icon={<Zap size={18}/>}/>
+               <InputField id="securityAmount" name="securityAmount" type="number" label="Security Amount" value={formData.securityAmount} onChange={handleChange} placeholder="e.g., 7000" required icon={<IndianRupee size={18}/>}/>
              </div>
           </div>
 

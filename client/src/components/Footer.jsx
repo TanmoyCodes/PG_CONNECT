@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="container mx-auto px-6">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <h3 className="text-lg font-bold mb-4">PG Connect</h3>
+          <h3 className="text-lg font-bold mb-4">PG Hunter</h3>
           <p className="text-gray-400">
             Your trusted partner in finding the perfect Paying Guest accommodation.
           </p>
@@ -21,10 +21,10 @@ const Footer = () => (
               <a href="#" className="hover:text-red-500">Listings</a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:text-red-500">Admin Login</a>
+              <a href="#" className="hover:text-red-500">Meet the Developer</a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:text-red-500">Privacy Policy</a>
+              <a href="#" className="hover:text-red-500">Terms & Conditions</a>
             </li>
           </ul>
         </div>
@@ -56,7 +56,7 @@ const Footer = () => (
       </div>
 
       <div className="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500">
-        &copy; 2024 PG Connect. All Rights Reserved.
+        &copy; 2025 PGHunter. All Rights Reserved.
       </div>
     </div>
   </footer>
