@@ -39,6 +39,7 @@ export default function App() {
     useEffect(()=>{
         getData();
     },[])
+    
 
     return (
         <div className="flex min-h-screen bg-gray-100">
