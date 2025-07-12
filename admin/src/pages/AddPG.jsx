@@ -60,7 +60,7 @@ export default function App() {
     area: "Law Gate",
     location: "",
     rent: "",
-    securityAmount: "",
+    securityAmount: 0,
     seater: "Single",
     gender: "Any",
     isFeatured: false,

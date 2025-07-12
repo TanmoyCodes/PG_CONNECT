@@ -5,7 +5,7 @@ const pgSchema = new mongoose.Schema({
   id_room: Number, // Auto-incremented
   name: { type: String, required: true },
   images: { type: [String], default: [] },
-
+  securityAmount:Number,
   area: String,
   location: String,
   rent: Number,

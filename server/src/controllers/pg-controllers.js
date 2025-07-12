@@ -10,6 +10,7 @@ async function createPG(req, res) {
       id_room,
       name,
       area,
+      securityAmount,
       location,
       rent,
       seater,
@@ -60,6 +61,7 @@ async function createPG(req, res) {
       rent,
       seater,
       gender,
+      securityAmount,
       isFeatured,
       soldOut,
       amenities: JSON.parse(amenities),          // ✅ parsed back to object
