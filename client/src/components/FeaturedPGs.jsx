@@ -28,7 +28,7 @@ const FeaturedPGs = () => {
       fetchPGs();
     }, []);
 
-  const featuredPGs = pgData;
+  const featuredPGs = pgData ||[];
 
   return (
     <section className="px-6 py-12 bg-gray-50">
