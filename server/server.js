@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended:true}))
 
 app.use(cors({
-    origin: true, //put frontend url in arr
+    origin: ['http://localhost:5173', 'https://www.pghunter.in/','https://adminpgconnect.vercel.app/'],
     credentials: true, // This allows cookies to be sent
     optionsSuccessStatus: 200 // For older browsers compatibility
 }));

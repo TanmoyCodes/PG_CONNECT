@@ -33,10 +33,10 @@ const registerUser = async (req, res) => {
         };
         // Optionally, you can send a token or session cookie here
         // For example, using JWT (not implemented in this snippet)
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+            secure: true, // Use secure cookies in production
             sameSite: 'Strict', // Adjust as necessary
         });
         
