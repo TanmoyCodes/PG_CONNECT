@@ -29,7 +29,7 @@ const SearchBar = () => {
         >
           <option value="Law Gate">Law Gate</option>
           <option value="Green Valley">Green Valley</option>
-          <option value="Botany Colony">Botany Colony</option>
+          <option value="Botany Colony">Bhutani Colony</option>
           <option value="Jazzy Properties">Jazzy Properties</option>
           <option value="Hardaspur">Hardaspur</option>
           <option value="Phagwara">Phagwara</option>

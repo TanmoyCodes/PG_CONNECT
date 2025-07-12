@@ -340,7 +340,7 @@ const prevImage = () =>
   >
     <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21 11.72 11.72 0 003.64.58 1 1 0 011 1v3.61a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.61a1 1 0 011 1 11.72 11.72 0 00.58 3.64 1 1 0 01-.21 1.11l-2.2 2.2z" />
   </svg>
-  Call Now
+  Enquire Now
 </a>
 
       <a
@@ -349,7 +349,7 @@ const prevImage = () =>
   rel="noopener noreferrer"
   className="w-full flex items-center justify-center bg-green-500 font-bold px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-105"
 >
-  <MessageSquare className="w-5 h-5 mr-2" /> Chat on WhatsApp
+  <MessageSquare className="w-5 h-5 mr-2" /> Check Availability
 </a>
 
 
