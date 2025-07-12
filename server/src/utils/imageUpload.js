@@ -1,6 +1,7 @@
 const ImageKit = require("imagekit");
 const fs = require("fs");
 const path = require("path");
+const sharp = require("sharp"); // ✅ added sharp for image compression
 
 // Initialize ImageKit
 const imagekit = new ImageKit({
@@ -14,26 +15,40 @@ function isFileTypeSupported(fileType, supportedTypes) {
     return supportedTypes.includes(fileType);
 }
 
-// Function to upload a file to ImageKit
+// Function to upload a file to ImageKit (with compression)
 async function uploadFileToImageKit(file, folder) {
-    return await imagekit.upload({
-        file: file.data, 
-        fileName: file.name,
-        folder: `/${folder}`,
-        useUniqueFileName: true
-    });
-}
+    try {
+        const fileType = file.name.split('.').pop().toLowerCase();
+        const supportedTypes = ["jpg", "jpeg", "png"];
 
+        if (!isFileTypeSupported(fileType, supportedTypes)) {
+            throw new Error("Unsupported file type.");
+        }
+
+        // ✅ Compress image using sharp
+        const compressedBuffer = await sharp(file.data)
+            .resize({ width: 1024 }) // optional resize to max width 1024px
+            .toFormat("jpeg", { quality: 70 }) // compress to jpeg with 70% quality
+            .toBuffer();
+
+        // ✅ Upload compressed image to ImageKit
+        return await imagekit.upload({
+            file: compressedBuffer,
+            fileName: file.name,
+            folder: `/${folder}`,
+            useUniqueFileName: true
+        });
+    } catch (error) {
+        throw new Error("Error during image compression/upload: " + error.message);
+    }
+}
 
 // Function to delete a file from ImageKit
 async function deleteFileFromImageKit(fileUrl) {
     try {
         if (!fileUrl) return;
 
-        // Extract file path after the urlEndpoint
         const filePath = fileUrl.replace(`${process.env.IMAGEKIT_URL_ENDPOINT}/`, '');
-        
-        // Get file ID from ImageKit
         const searchResult = await imagekit.listFiles({
             path: filePath,
         });
@@ -51,6 +66,7 @@ async function imageUpload(file, existingImageUrl) {
         const supportedTypes = ["jpg", "jpeg", "png"];
         const fileType = file.name.split('.').pop().toLowerCase();
 
+        // Optional: validate file type
         // if (!isFileTypeSupported(fileType, supportedTypes)) {
         //     throw new Error("Image format not supported.");
         // }
@@ -67,13 +83,11 @@ async function imageUpload(file, existingImageUrl) {
     }
 }
 
-
 async function multipleImageUpload(req) {
     try {
         let files = req.files?.imageFiles;
         if (!files) throw new Error("No files received");
 
-        // Ensure it's an array
         if (!Array.isArray(files)) {
             files = [files];
         }
@@ -81,7 +95,7 @@ async function multipleImageUpload(req) {
         const urls = [];
 
         for (const file of files) {
-            const url = await imageUpload(file); // no `req` here, just file
+            const url = await imageUpload(file);
             urls.push(url);
         }
 
@@ -91,7 +105,6 @@ async function multipleImageUpload(req) {
         throw new Error("Error in multipleImageUpload: " + error.message);
     }
 }
-
 
 module.exports = {
     imageUpload,
