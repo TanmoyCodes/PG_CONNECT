@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
     PlusCircle, Trash2, Edit, Search, Building, ShieldCheck, ShieldOff,
     DollarSign, ArrowDownUp, Star, Home, LayoutDashboard, AlertTriangle,
@@ -6,16 +6,14 @@ import {
 } from 'lucide-react';
 import AddPG from './AddPG';
 import AdminDashboard from '../components/AdminDashboard';
+import axios from 'axios';
 
 const initialPgData = [
     { id_room: 101, name: "Sunrise PG", images: ["https://placehold.co/400x300/F4A261/FFF?text=Sunrise+PG"], area: "Law Gate", location: "LPU", rent: 7500, seater: "Double", gender: "Male", isFeatured: true, soldOut: false, commission: 2000, listingDate: "2025-06-10" },
-    { id_room: 102, name: "Galaxy Homes", images: ["https://placehold.co/400x300/2A9D8F/FFF?text=Galaxy+Homes"], area: "Hardaspur", location: "Phagwara", rent: 6000, seater: "Single", gender: "Female", isFeatured: false, soldOut: true, commission: 1500, listingDate: "2025-05-20" },
-    { id_room: 201, name: "Student Comforts", images: ["https://placehold.co/400x300/E9C46A/FFF?text=Student+Comforts"], area: "Law Gate", location: "LPU", rent: 8000, seater: "Triple", gender: "Male", isFeatured: false, soldOut: false, commission: 2500, listingDate: "2025-06-15" },
-    { id_room: 305, name: "Peaceful Stay", images: ["https://placehold.co/400x300/264653/FFF?text=Peaceful+Stay"], area: "Deep Nagar", location: "Jalandhar", rent: 9000, seater: "Double", gender: "Any", isFeatured: true, soldOut: true, commission: 3000, listingDate: "2025-04-01" },
-    { id_room: 410, name: "LPU Nest", images: ["https://placehold.co/400x300/E76F51/FFF?text=LPU+Nest"], area: "Law Gate", location: "LPU", rent: 7000, seater: "Single", gender: "Female", isFeatured: false, soldOut: false, commission: 1800, listingDate: "2025-06-22" },
 ];
 
 export default function App() {
+    const apiUrl = import.meta.env.VITE_API_BASE_URL;
     const [view, setView] = useState('dashboard');
     const [pgData, setPgData] = useState(initialPgData);
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -26,6 +24,21 @@ export default function App() {
             setSidebarOpen(false);
         }
     };
+
+    const getData=async()=>{
+        try {
+            const res=await axios.get(`${apiUrl}/api/v1/pg/allpg`,{withCredentials:true});
+            const data=res.data.data;
+            setPgData(data);
+            
+        } catch (error) {
+            console.log('error getPgData :',error);
+        }
+    }
+
+    useEffect(()=>{
+        getData();
+    },[])
 
     return (
         <div className="flex min-h-screen bg-gray-100">
