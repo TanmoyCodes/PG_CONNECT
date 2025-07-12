@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors({
     origin: ['http://localhost:5173', 'https://www.pghunter.in','https://adminpgconnect.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    secure: import.meta.env.PROD=='production', // Set to true in production
+    secure:process.env.PROD=='production',
     credentials: true, // This allows cookies to be sent
     optionsSuccessStatus: 200 // For older browsers compatibility
 }));
