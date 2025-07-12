@@ -6,17 +6,24 @@ import Signup from './pages/Signup';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute';
 import axios from 'axios';
+import { useAuth } from './context/AuthContext';
+import HomeRedirect from './components/HomeRedirect'; // ✅ Import the new component
 
 function App() {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
 
   const checkAuth = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/api/check-auth/admin`, { withCredentials: true });
-      console.log('Auth check response:', res);
-      setIsAuthenticated(res.data.authenticated); // depends on your backend response
+      const res = await axios.get(`${apiUrl}/api/v1/auth/checkAdmin`, {
+        withCredentials: true,
+      });
+      if (res.status === 200 && res.data.success) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
     } catch (error) {
       setIsAuthenticated(false);
     } finally {
@@ -33,7 +40,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Signup />} />
+        <Route path="/" element={<HomeRedirect />} /> {/* ✅ Use redirect */}
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/dashboard"
