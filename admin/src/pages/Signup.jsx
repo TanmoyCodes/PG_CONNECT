@@ -33,7 +33,7 @@ const Signup = () => {
 
       alert('Signup successful!');
       e.target.reset();
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       console.error('Error during signup:', error);
       alert('An error occurred during signup. Please try again.');
