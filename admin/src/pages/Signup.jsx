@@ -23,7 +23,7 @@ const Signup = () => {
       setLoading(true);
       const data = { name, email, password };
       console.log(data);
-      const res = await axios.post(`${apiUrl}/api/signup`, data);
+      const res = await axios.post(`${apiUrl}/api/v1/auth/register`, data, {withCredentials: true,});
 
       if (res.status !== 201 && res.status !== 200) {
         alert('Signup failed. Please try again.');

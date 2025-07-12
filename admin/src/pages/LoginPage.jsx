@@ -14,7 +14,7 @@ const LoginPage = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post(`${apiUrl}/api/login`, { email, password });
+      const res = await axios.post(`${apiUrl}/api/login`, { email, password },{withCredentials: true,});
 
       if (res.status !== 200) {
         alert("Login failed. Please try again.");

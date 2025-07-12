@@ -15,6 +15,7 @@ function App() {
   const checkAuth = async () => {
     try {
       const res = await axios.get(`${apiUrl}/api/check-auth/admin`, { withCredentials: true });
+      console.log('Auth check response:', res);
       setIsAuthenticated(res.data.authenticated); // depends on your backend response
     } catch (error) {
       setIsAuthenticated(false);
