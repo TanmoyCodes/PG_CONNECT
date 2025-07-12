@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Loader from '../components/Loader';
 import { 
   ChevronLeft, ChevronRight, CheckCircle, School, Car, MapPin, Info, BedDouble, Wind, ShieldQuestion, HeartHandshake,
   Globe,
@@ -63,7 +64,7 @@ const PGDetailsPage = () => {
 const prevImage = () =>
   setCurrentImageIndex((p) => (p - 1 + pg.images.length) % pg.images.length);
 
-  if (loading) return <div className="text-center py-20 text-lg">Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div className="text-center py-20 text-lg text-red-600">{error}</div>;
   if (!pg) return <div className="text-center py-20 text-xl font-bold" style={{ color: primaryColor }}>PG Not Found</div>;
 
@@ -377,7 +378,7 @@ const prevImage = () =>
   <div className="bg-white border-2 border-dashed border-yellow-500 p-5 rounded-2xl shadow-lg text-center">
                   <Award className="w-10 h-10 mx-auto text-yellow-500 mb-2"/>
                   <h3 className="text-lg font-bold text-gray-800">Refer a Friend & Save!</h3>
-                  <p className="text-gray-600 mt-1">Get upto <span className="font-bold text-green-600">₹500 off</span> your next month's rent when your friend books with us.</p>
+                  <p className="text-gray-600 mt-1">Get upto <span className="font-bold text-green-600">₹200 off</span> your next month's rent when your friend books with us.</p>
                </div>
                {/* <div className="lg:hidden fixed bottom-5 left-2 right-2 z-50">
   <button className="w-full flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold px-4 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300">

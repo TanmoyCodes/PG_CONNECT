@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ListingCard from "./ListingCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loader from "./Loader";
 
 const FeaturedPGs = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -35,7 +36,7 @@ const FeaturedPGs = () => {
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Featured PGs</h2>
 
       {loading ? (
-        <p className="text-center text-gray-500">Loading...</p>
+        <Loader/>
       ) : error ? (
         <p className="text-center text-red-500">{error}</p>
       ) : (

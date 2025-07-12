@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ListingCard from "../components/ListingCard";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 const ListingsPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -12,8 +13,10 @@ const ListingsPage = () => {
     const fetchPGs = async () => {
       try {
         const res = await axios.get(`${apiUrl}/api/v1/pg/allpg`);
-        const data=res.data.data;
+        console.log("Response Data:", res);
+        const data=res.data.data ||[];
         setPgData(data);
+        console.log("PG Data:", data);
       } catch (error) {
         console.error("Error fetching PG listings:", error);
       } finally {
@@ -30,11 +33,10 @@ const ListingsPage = () => {
         <h2 className="text-3xl font-bold text-center mb-8">All PG Listings</h2>
 
         {loading ? (
-          <p className="text-center">Loading PGs...</p>
+         <Loader/>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...pgData]
-              .sort((a, b) => (b.isFeatured === true) - (a.isFeatured === true))
+            {pgData.sort((a, b) => (b.isFeatured === true) - (a.isFeatured === true))
               .map((pg ,idx) => (
                 <ListingCard pg={pg} key={idx} />
               ))}
