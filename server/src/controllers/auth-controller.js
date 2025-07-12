@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password,role } = req.body;
 
         // Check if user already exists
         const existingUser = await UserModel.findOne({ email });
@@ -21,6 +21,7 @@ const registerUser = async (req, res) => {
             name,
             email,
             password: hashedPassword,
+            role,
         });
 
         await newUser.save();
@@ -39,16 +40,57 @@ const registerUser = async (req, res) => {
             sameSite: 'Strict', // Adjust as necessary
         });
         
-
-        return res.status(201).json({ message: 'User registered successfully' });
+        newUser.password = undefined; // Remove password from response
+        return res.status(201).json({ message: 'User registered successfully',success: true,user:newUser });
     } catch (error) {
+        if( error.name === 'ValidationError' ||error.code=== 11000) {
+            return res.status(400).json({ message: error.message });
+        }
         console.error('Error registering user:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
 
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        // Find user by email
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email' });
+        }
+        // Check password 
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+        // Create JWT token
+        const payload = {
+            name: user.name,
+            email: user.email,
+            id: user._id,
+        }
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '12h' });
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+            sameSite: 'Strict', // Adjust as necessary
+        });
+
+        user.password = undefined; // Remove password from response
+        return res.status(200).json({ message: 'User logged in successfully', success: true, user: user });
+    } catch (error) {
+        if( error.name === 'ValidationError' ||error.code=== 11000) {
+            return res.status(400).json({ message: error.message });
+        }
+        console.error('Error logging in user:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 
 
 module.exports = {
     registerUser,
+    loginUser
 };
