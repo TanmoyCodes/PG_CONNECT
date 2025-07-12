@@ -37,6 +37,7 @@ function App() {
 
   if (loading) return <div className="text-center mt-10 text-lg">Checking authentication...</div>;
 
+  
   return (
     <Router>
       <Routes>
