@@ -34,7 +34,7 @@ const AllRoutes=require('./src/routes');
 app.use('/api',AllRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Welcome to Expense Tracker API!');
+    res.send('Server is Running!!!!!!!!!!!!!!!!');
 });
 
 //start Server
