@@ -25,9 +25,9 @@ const LoginPage = () => {
         throw new Error("Login failed");
       }
 
+      navigate("/dashboard");
       alert("Login successful!");
       e.target.reset();
-      navigate("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
       alert("An error occurred. Please try again.");
