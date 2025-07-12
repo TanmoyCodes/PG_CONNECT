@@ -15,14 +15,23 @@ const Header = ({ onLoginClick }) => {
           <Link to="/" className="text-gray-600 hover:text-red-600">Home</Link>
           <Link to="/listings" className="text-gray-600 hover:text-red-600">Listings</Link>
           <Link to="/about" className="text-gray-600 hover:text-red-600">About Us</Link>
+          <Link 
+  to={`https://wa.me/919863258533?text=${encodeURIComponent(
+    `Hello admin, I want to list my PG in your website.`
+  )}`} 
+  className="text-gray-600 hover:text-red-600"
+>
+  List Your PG
+</Link>
+
           <Link to="/contact" className="text-gray-600 hover:text-red-600">Contact</Link>
 
-          <button
+          {/*<button
             onClick={onLoginClick}
             className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300"
           >
             Login
-          </button>
+          </button>*/}
         </div>
 
         {/* Mobile: Hamburger */}

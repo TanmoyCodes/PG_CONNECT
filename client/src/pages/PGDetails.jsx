@@ -344,7 +344,11 @@ const prevImage = () =>
 </a>
 
       <a
-  href={`https://wa.me/919863258533?text=${encodeURIComponent(`Hello, I am interested in the *${pg.name}* Pg, *PG ID: ${pg.id_room}* located at *${pg.area}, ${pg.location}.* Please share more details. Here is the link: https://pg-connect-chi.vercel.app/pg/${pg._id}`)}`}
+  href={`https://wa.me/919863258533?text=${encodeURIComponent(`Hello admin, I am interested in the \n*${pg.name}*, \n
+    *PG ID: ${pg.id_room}* \n
+    located at *${pg.area}, ${pg.location}.*   \n
+    Please check the availability.\n Here is the link: https://pg-connect-chi.vercel.app/pg/${pg._id}`)}`}
+
   target="_blank"
   rel="noopener noreferrer"
   className="w-full flex items-center justify-center bg-green-500 font-bold px-4 py-3 rounded-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-105"
