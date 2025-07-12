@@ -37,8 +37,8 @@ const registerUser = async (req, res) => {
         // Set cookie
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.PROD == 'production',
-            sameSite: process.env.PROD == 'production' ? 'None' : 'Lax',
+            secure: true,
+            sameSite:'None',
             maxAge: 3 * 60 * 60 * 1000, // 3 hours
         });
 
@@ -80,8 +80,8 @@ const loginUser = async (req, res) => {
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.PROD == 'production',
-            sameSite: process.env.PORD == 'production' ? 'None' : 'Lax',
+            secure: true,
+            sameSite:'None',
             maxAge: 12 * 60 * 60 * 1000, // 12 hours
         });
 
