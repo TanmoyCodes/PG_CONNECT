@@ -21,9 +21,7 @@ const Footer = () => (
             <li className="mb-2">
               <Link to='/listings' className="hover:text-red-500">Listings</Link>
             </li>
-            <li className="mb-2">
-              <Link to='/'className="hover:text-red-500">Developer</Link>
-            </li>
+            
             <li className="mb-2">
               <Link to='/' className="hover:text-red-500">Terms & Conditions</Link>
             </li>
@@ -33,10 +31,10 @@ const Footer = () => (
         <div>
           <h3 className="text-lg font-bold mb-4">Contact Us</h3>
           <p className="text-gray-400 mb-2">
-            <i className="fas fa-envelope mr-2" /> contact@pgconnect.com
+            <i className="fas fa-envelope mr-2" /> contact.pghunter@gmail.com
           </p>
           <p className="text-gray-400">
-            <i className="fas fa-phone mr-2" /> +91 12345 67890
+            <i className="fas fa-phone mr-2" /> +91 97747 28561
           </p>
         </div>
 

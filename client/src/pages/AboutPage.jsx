@@ -56,9 +56,9 @@ const AboutSection = () => (
                 </div>
                 <div className="relative h-64 md:h-full">
                     <img 
-                        src="https://placehold.co/600x400/3B82F6/FFFFFF?text=LPUStay+Vibeshttps://ik.imagekit.io/tanmoycodes/PGHunter.png?updatedAt=1752302407422" 
+                        src="https://ik.imagekit.io/tanmoycodes/PGHunter.png?updatedAt=1752302407422" 
                         alt="Modern student accommodation" 
-                        className="w-full h-full object-cover rounded-2xl shadow-xl"
+                        className="w-100 h-auto object-cover scale-[1.4] rounded-4xl"
                     />
                 </div>
             </div>
@@ -86,15 +86,15 @@ const TeamSection = () => {
 
     const allTeamMembers = [
         { name: 'Aditya Kumar', role: 'Founder & CEO', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=AS', linkedinUrl: '#' },
-        { name: 'Karanjeet Singh', role: 'Founder & Head of Operations', image: 'https://placehold.co/128x128/ddd6fe/5b21b6?text=PS', linkedinUrl: '#' },
-        { name: 'Tanmoy Debnath', role: 'Founder & CTO', image: 'https://placehold.co/128x128/e9d5ff/7e22ce?text=RM', linkedinUrl: '#' },
-        { name: 'Rohit Kumar', role: 'Backend Engineer', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=VR', linkedinUrl: '#' },
-        { name: 'Aman Kumar', role: 'Marketing Director', image: 'https://placehold.co/128x128/f3e8ff/9333ea?text=SG', linkedinUrl: '#' },
+        { name: 'Karanjeet Kumar', role: 'Founder and Head of Operations', image: 'https://ik.imagekit.io/tanmoycodes/PgHunter/Karan.png?updatedAt=1752401866256', linkedinUrl: 'https://www.linkedin.com/in/k4karan' },
+        { name: 'Tanmoy Debnath', role: 'Founder & CTO', image: 'https://ik.imagekit.io/tanmoycodes/Tanmoy%20Image.png?updatedAt=1751476499338', linkedinUrl: '#' },
+        { name: 'Rohit Kumar', role: 'Backend Engineer', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=RK', linkedinUrl: '#' },
+        { name: 'Aman Kumar', role: 'Marketing Director', image: 'https://placehold.co/128x128/f3e8ff/9333ea?text=AK', linkedinUrl: '#' },
         ,
     ];
     
-    const featuredMembers = allTeamMembers.slice(0, 4);
-    const remainingMembers = allTeamMembers.slice(4, 8);
+    const featuredMembers = allTeamMembers.slice(0, 8);
+    const remainingMembers = allTeamMembers.slice(9, 14);
 
 
     return (
@@ -203,54 +203,76 @@ const UspSection = () => (
 );
 
 const WhyChooseUsSection = () => (
-    <section id="why-choose-us" className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative h-80 md:h-96">
-                     <img 
-                        src="https://placehold.co/600x450/dbeafe/1e3a8a?text=Your+Choice" 
+   <section id="why-choose-us" class="py-16 md:py-24 bg-gray-50">
+    <div class="container mx-auto px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 md:gap-16 md:items-start">
+            
+            <div class="relative ">
+                <div class="aspect-w-4 aspect-h-3 rounded-2xl shadow-2xl overflow-hidden transition-transform duration-500 ease-in-out group">
+                    <img 
+                        src="https://ik.imagekit.io/tanmoycodes/MeetOurTeam.jpg" 
                         alt="Happy student in their room" 
-                        className="w-full h-full object-cover rounded-2xl shadow-xl"
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                     />
                 </div>
-                <div>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">Why Choose Us?</h2>
-                    <ul className="space-y-4">
-                        <li className="flex items-start">
-                            <div className="flex-shrink-0 bg-green-500 rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1">
-                                <span className="text-white font-bold">✓</span>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-lg">Save Time & Effort</h3>
-                                <p className="text-gray-600">Stop endless scrolling. Find your ideal home in minutes on our curated platform.</p>
-                            </div>
-                        </li>
-                        <li className="flex items-start">
-                            <div className="flex-shrink-0 bg-green-500 rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1">
-                                <span className="text-white font-bold">✓</span>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-lg">Transparent & Trustworthy</h3>
-                                <p className="text-gray-600">Clear pricing, real photos, and genuine reviews. We believe in complete transparency.</p>
-                            </div>
-                        </li>
-                        <li className="flex items-start">
-                           <div className="flex-shrink-0 bg-green-500 rounded-full w-6 h-6 flex items-center justify-center mr-4 mt-1">
-                                <span className="text-white font-bold">✓</span>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-lg">Dedicated Support</h3>
-                                <p className="text-gray-600">Our team is always ready to help you with any queries or issues during your stay.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
+
+            <div class="text-center md:text-left">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 tracking-tight">
+                    Why Choose Us?
+                </h2>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto md:mx-0">
+                    Discover a seamless and trustworthy way to find your next home. We prioritize your time, safety, and satisfaction.
+                </p>
+                <ul class="space-y-6">
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Save Time & Effort</h3>
+                            <p class="text-gray-600">Our curated platform helps you find the perfect home in minutes, not hours of endless scrolling.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="flex-shrink-0 bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Transparent & Trustworthy</h3>
+                            <p class="text-gray-600">We provide clear pricing, verified photos, and authentic reviews for complete peace of mind.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                       <div class="flex-shrink-0 bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Dedicated Support</h3>
+                            <p class="text-gray-600">Our friendly team is always available to assist you with any questions or concerns during your stay.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
         </div>
-    </section>
+    </div>
+</section>
 );
 
+{/*const ContactSection = () => {
+    const [status, setStatus] = useState('');
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setStatus('sending');
+        // Simulate API call
+        setTimeout(() => {
+            setStatus('sent');
+            e.target.reset();
+            setTimeout(() => setStatus(''), 3000);
+        }, 1500);
+    };
 
     return (
         <section id="contact" className="py-16 md:py-24 bg-blue-600 text-white">
@@ -285,7 +307,7 @@ const WhyChooseUsSection = () => (
             </div>
         </section>
     );
-};
+};*/}
 
 
 
