@@ -80,7 +80,6 @@ export default function App() {
     distanceFromAuto: "",
     distanceFromCollege: "",
     electricityPerUnit: "",
-    isCoupleFriendly: false,
     isInternationalFriendly: false,
     isPetFriendly: false,
     ownerName: "",

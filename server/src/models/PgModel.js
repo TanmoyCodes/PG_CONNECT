@@ -25,7 +25,6 @@ const pgSchema = new mongoose.Schema({
   distanceFromCollege: Number,
   electricityPerUnit: Number,
 
-  isCoupleFriendly: { type: Boolean, default: false },
   isInternationalFriendly: { type: Boolean, default: false },
   isPetFriendly: { type: Boolean, default: false },
 

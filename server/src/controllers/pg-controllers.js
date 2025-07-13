@@ -24,7 +24,6 @@ async function createPG(req, res) {
       distanceFromAuto,
       distanceFromCollege,
       electricityPerUnit,
-      isCoupleFriendly,
       isInternationalFriendly,
       isPetFriendly,
       ownerName,
@@ -72,7 +71,7 @@ async function createPG(req, res) {
       distanceFromAuto,
       distanceFromCollege,
       electricityPerUnit,
-      isCoupleFriendly,
+
       isInternationalFriendly,
       isPetFriendly,
       ownerName,
