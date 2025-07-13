@@ -8,7 +8,7 @@ const Footer = () => (
         <div>
           <h3 className="text-lg font-bold mb-4">PG Hunter</h3>
           <p className="text-gray-400">
-            Your trusted partner in finding the perfect accommodation for students and professionals. We connect you with verified listings to ensure a hassle-free experience.
+            Your trusted partner in finding the perfect accommodation for students and professionals.
           </p>
         </div>
 

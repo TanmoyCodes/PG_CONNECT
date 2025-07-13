@@ -46,9 +46,9 @@ const AboutSection = () => (
         <div className="container mx-auto px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="text-center md:text-left">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">About LPUStay</h2>
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">About PGHunter.in</h2>
                     <p className="text-lg text-gray-600 mb-6">
-                        LPUStay was born from a simple idea: to make finding the perfect off-campus housing near LPU a seamless and stress-free experience. We are a team of dedicated professionals, many of us LPU alumni, who understand the challenges students face when looking for a place to call home.
+                        PGHunter.in was born from a simple idea: to make finding the perfect off-campus housing near LPU a seamless and stress-free experience. We are a team of dedicated professionals, some of us are now LPU alumni, who understand the challenges students face when looking for a place to call home.
                     </p>
                     <p className="text-gray-600">
                         Our platform connects students with verified, high-quality accommodations, from PGs to apartments, ensuring safety, comfort, and convenience. We're more than just a listing service; we're your trusted partner in your academic journey.
@@ -85,11 +85,11 @@ const TeamSection = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const allTeamMembers = [
-        { name: 'Aditya Kumar', role: 'Founder & CEO', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=AS', linkedinUrl: '#' },
+        { name: 'Aditya Kumar', role: 'Founder & CEO', image: 'https://ik.imagekit.io/tanmoycodes/PgHunter/Aditya.png?updatedAt=1752413816705', linkedinUrl: 'https://linkedin.com/in/adityakumar001' },
         { name: 'Karanjeet Kumar', role: 'Founder and Head of Operations', image: 'https://ik.imagekit.io/tanmoycodes/PgHunter/Karan.png?updatedAt=1752401866256', linkedinUrl: 'https://www.linkedin.com/in/k4karan' },
-        { name: 'Tanmoy Debnath', role: 'Founder & CTO', image: 'https://ik.imagekit.io/tanmoycodes/Tanmoy%20Image.png?updatedAt=1751476499338', linkedinUrl: '#' },
-        { name: 'Rohit Kumar', role: 'Backend Engineer', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=RK', linkedinUrl: '#' },
-        { name: 'Aman Kumar', role: 'Marketing Director', image: 'https://placehold.co/128x128/f3e8ff/9333ea?text=AK', linkedinUrl: '#' },
+        { name: 'Tanmoy Debnath', role: 'Founder & CTO', image: 'https://ik.imagekit.io/tanmoycodes/Tanmoy%20Image.png?updatedAt=1751476499338', linkedinUrl: 'https://www.linkedin.com/in/tanmoy-dev/' },
+        { name: 'Rohit Kumar', role: 'Backend Engineer', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=RK', linkedinUrl: 'https://www.linkedin.com/in/rohit-kumar111/' },
+        { name: 'Aman Kumar', role: 'Marketing Director', image: 'https://placehold.co/128x128/f3e8ff/9333ea?text=AK', linkedinUrl: 'https://www.linkedin.com/in/aman181/' },
         ,
     ];
     
