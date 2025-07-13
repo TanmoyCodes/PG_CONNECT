@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ScrollToTop from './components/ScrollToTop';
 import AboutPage from './pages/AboutPage';
+import ContactUsPage from './pages/ContactUsPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/search-results" element={<SearchResult />} /> {/* ✅ Add this */}
         <Route path="/pg/:id" element={<PGDetails />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactUsPage />} />
 
       </Routes>
       <Footer />
