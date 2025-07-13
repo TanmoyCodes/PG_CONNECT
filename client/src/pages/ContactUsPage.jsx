@@ -45,7 +45,7 @@ const ContactUs = () => {
 
     // --- Mock submission ---
     console.log('Form Data Submitted:', formData);
-    
+
     setTimeout(() => {
       setIsSubmitting(false);
       setFeedbackMessage('Thank you for your message! We will get back to you soon.');
@@ -60,39 +60,39 @@ const ContactUs = () => {
         <div className="grid grid-cols-1 md:grid-cols-2">
           
           {/* Left Side: Contact Information & Map */}
-          <div className="p-8 bg-blue-600 text-white">
+          <div className="p-8 bg-[#e8000c] text-white">
             <h2 className="text-3xl font-bold mb-2">Get in Touch</h2>
-            <p className="text-blue-100 mb-8">We'd love to hear from you. Here's how you can reach us.</p>
+            <p className="text-red-100 mb-8">We'd love to hear from you. Here's how you can reach us.</p>
             
             <div className="space-y-6">
               <div className="flex items-start">
                 <MapPin size={24} className="flex-shrink-0 mr-4 mt-1" />
                 <div>
                   <h3 className="font-semibold text-lg">Our Location</h3>
-                  <p className="text-blue-200">Lovely Professional University, Jalandhar-Delhi G.T. Road, Phagwara, Punjab 144411</p>
+                  <p className="text-red-200">Lovely Professional University, Jalandhar-Delhi G.T. Road, Phagwara, Punjab 144411</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Mail size={24} className="flex-shrink-0 mr-4 mt-1" />
                 <div>
                   <h3 className="font-semibold text-lg">Email Us</h3>
-                  <a href="mailto:info@lpustay.com" className="text-blue-200 hover:text-white transition-colors">info@lpustay.com</a>
+                  <a href="mailto:info@lpustay.com" className="text-red-200 hover:text-white transition-colors">contact.pghunter@gmail.com</a>
                 </div>
               </div>
               <div className="flex items-start">
                 <Phone size={24} className="flex-shrink-0 mr-4 mt-1" />
                 <div>
                   <h3 className="font-semibold text-lg">Call Us</h3>
-                  <a href="tel:+911234567890" className="text-blue-200 hover:text-white transition-colors">+91 123 456 7890</a>
+                  <a href="tel:+911234567890" className="text-red-200 hover:text-white transition-colors">+91 123 456 7890</a>
                 </div>
               </div>
             </div>
 
             {/* Embedded Google Map */}
             <div className="mt-10">
-                <div className="rounded-xl overflow-hidden shadow-lg border-4 border-blue-500">
+                <div className="rounded-xl overflow-hidden shadow-lg border-4 border-red-400">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3413.340217931215!2d75.7026752755982!3d31.18330087436737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a5f5e7427184b%3A0x213394733478252!2sLovely%20Professional%20University!5e0!3m2!1sen!2sin!4v1720190089874!5m2!1sen!2sin"
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14484.272073941143!2d75.69665660181988!3d31.250370660635742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1752403906794!5m2!1sen!2sin"
                         width="100%"
                         height="250"
                         style={{ border: 0 }}
@@ -119,8 +119,8 @@ const ContactUs = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    placeholder="John Doe"
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+                    placeholder="Ex: Rahul/Ria"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-shadow"
                     required
                   />
                 </div>
@@ -135,7 +135,7 @@ const ContactUs = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="you@example.com"
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-shadow"
                     required
                   />
                 </div>
@@ -150,7 +150,7 @@ const ContactUs = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     placeholder="Your message here..."
-                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow resize-none"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-shadow resize-none"
                     required
                   ></textarea>
                 </div>
@@ -161,7 +161,7 @@ const ContactUs = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full flex items-center justify-center px-6 py-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 disabled:bg-blue-400 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center px-6 py-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-300 disabled:bg-red-400 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>

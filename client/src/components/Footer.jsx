@@ -47,7 +47,7 @@ const Footer = () => (
             <a href="#" className="text-gray-400 hover:text-white">
               <i className="fab fa-twitter text-xl" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-white">
+            <a href="https://www.instagram.com/pg_wale_bhaiya?igsh=MTd4M2Y2aDJ0bmhtaw==" className="text-gray-400 hover:text-white">
               <i className="fab fa-instagram text-xl" />
             </a>
           </div>
