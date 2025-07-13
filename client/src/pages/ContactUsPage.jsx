@@ -1,5 +1,6 @@
 
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { useState } from 'react';
 
 // Main App Component
 export default function App() {
@@ -44,6 +45,7 @@ const ContactUs = () => {
 
     // --- Mock submission ---
     console.log('Form Data Submitted:', formData);
+    
     setTimeout(() => {
       setIsSubmitting(false);
       setFeedbackMessage('Thank you for your message! We will get back to you soon.');
