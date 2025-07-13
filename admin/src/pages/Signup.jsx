@@ -1,11 +1,13 @@
 import { useNavigate, Link } from 'react-router-dom'; // ✅ Fix incorrect import
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const Signup = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -31,7 +33,7 @@ const Signup = () => {
         throw new Error('Signup failed');
       }
 
-      navigate('/dashboard');
+      setIsAuthenticated(true);
       alert('Signup successful!');
       e.target.reset();
     } catch (error) {
@@ -41,6 +43,12 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+      if(isAuthenticated) {
+        navigate("/dashboard");
+      }
+  },[isAuthenticated]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-purple-200 via-pink-200 to-blue-200 px-4">

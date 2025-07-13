@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const LoginPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const LoginPage = () => {
         throw new Error("Login failed");
       }
 
-      navigate("/dashboard");
+      setIsAuthenticated(true);
       alert('login Successfull');
     } catch (error) {
       console.error("Login error:", error);
@@ -34,6 +36,12 @@ const LoginPage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      navigate("/dashboard");
+    }
+  },[isAuthenticated]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-200 px-4">
