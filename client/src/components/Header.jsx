@@ -8,7 +8,10 @@ const Header = ({ onLoginClick }) => {
     <header className="bg-white shadow-sm sticky top-0 z-40">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Left: Logo */}
+        <div className='flex gap-1 items-center'>
+        <img src='https://ik.imagekit.io/tanmoycodes/PGHunter.png?updatedAt=1752302407422' width='50px' alt='icon'/>
         <a href="/" className="text-2xl font-bold text-red-600 " style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800 }}>PG Hunter</a>
+        </div>
 
         {/* Right: Nav Links + Login */}
         <div className="hidden md:flex items-center space-x-6">

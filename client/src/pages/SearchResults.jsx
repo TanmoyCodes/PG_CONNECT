@@ -17,32 +17,40 @@ const SearchResult = () => {
   const price = searchParams.get("price");
 
   const filterPGs = () => {
-    return pgData
-      .filter((pg) => {
-        const matchesArea = selectedArea === "LPU Area" || pg.area === selectedArea;
-        const matchesGender = gender === "Any" || pg.gender === gender;
-        const matchesSeater = seater === "Any" || pg.seater === seater;
+  const isAllDefault =
+    selectedArea === "LPU Area" &&
+    gender === "Any" &&
+    seater === "Any" &&
+    price === "Any";
 
-        // Parse price range
-        let matchesPrice = true;
-        if (price !== "Any" && pg.price) {
-          const numPrice = Number(pg.price);
-          if (price === "0-3k") matchesPrice = numPrice <= 3000;
-          else if (price === "3k-5k") matchesPrice = numPrice > 3000 && numPrice <= 5000;
-          else if (price === "5-8k") matchesPrice = numPrice > 5000 && numPrice <= 8000;
-          else if (price === "8-10k") matchesPrice = numPrice > 8000 && numPrice <= 10000;
-          else if (price === "10-15k") matchesPrice = numPrice > 10000 && numPrice <= 15000;
-          else if (price === "15k+") matchesPrice = numPrice > 15000;
-        }
+  return pgData
+    .filter((pg) => {
+      if (isAllDefault) return true; // Return all PGs if all filters are default
 
-        return matchesArea && matchesGender && matchesSeater && matchesPrice;
-      })
-      .sort((a, b) => {
-        // Sort featured PGs to the top
-        if (a.isFeatured === b.isFeatured) return 0;
-        return a.isFeatured ? -1 : 1;
-      });
-  };
+      const matchesArea = selectedArea === "LPU Area" || pg.area === selectedArea;
+      const matchesGender = gender === "Any" || pg.gender === gender;
+      const matchesSeater = seater === "Any" || pg.seater === seater;
+
+      // Price filter
+      let matchesPrice = true;
+      if (price !== "Any" && pg.price) {
+        const numPrice = Number(pg.price);
+        if (price === "0-3k") matchesPrice = numPrice <= 3000;
+        else if (price === "3k-5k") matchesPrice = numPrice > 3000 && numPrice <= 5000;
+        else if (price === "5-8k") matchesPrice = numPrice > 5000 && numPrice <= 8000;
+        else if (price === "8-10k") matchesPrice = numPrice > 8000 && numPrice <= 10000;
+        else if (price === "10-15k") matchesPrice = numPrice > 10000 && numPrice <= 15000;
+        else if (price === "15k+") matchesPrice = numPrice > 15000;
+      }
+
+      return matchesArea && matchesGender && matchesSeater && matchesPrice;
+    })
+    .sort((a, b) => {
+      if (a.isFeatured === b.isFeatured) return 0;
+      return a.isFeatured ? -1 : 1;
+    });
+};
+
 
    useEffect(() => {
     const fetchPGs = async () => {

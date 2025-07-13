@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../components/Loader';
+import ImageScroller from '../components/ImageScroller';
 import { 
   ChevronLeft, ChevronRight, CheckCircle, School, Car, MapPin, Info, BedDouble, Wind, ShieldQuestion, HeartHandshake,
   Globe,
@@ -76,59 +77,7 @@ const prevImage = () =>
       <main className="lg:col-span-2 space-y-6">
 
         {/* Image slider now inside left column */}
-        <div className="relative w-full aspect-[16/9] sm:aspect-[16/9] shadow-xl rounded-2xl overflow-hidden">
-  <div
-    className="flex transition-transform duration-500 ease-in-out h-full"
-    style={{
-      transform: `translateX(-${currentImageIndex * (100 / pg.images.length)}%)`,
-      width: `${pg.images.length * 100}%`,
-    }}
-  >
-    {pg.images.map((img, index) => (
-      <div key={index} className="w-full h-full relative overflow-hidden">
-        {/* Ambient blurred background */}
-        <img
-          src={img}
-          alt="Ambient Glow"
-          className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40 z-0 transition-all duration-700"
-        />
-        {/* Actual image */}
-        <img
-          src={img}
-          alt={`PG Image ${index + 1}`}
-          className="w-full h-full object-contain z-10 relative transition-all duration-700"
-        />
-      </div>
-    ))}
-  </div>
-
-  {/* Nav Buttons */}
-  <button
-    onClick={prevImage}
-    className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white transition shadow-md"
-  >
-    <ChevronLeft />
-  </button>
-  <button
-    onClick={nextImage}
-    className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white transition shadow-md"
-  >
-    <ChevronRight />
-  </button>
-
-  {/* Dots */}
-  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-    {pg.images.map((_, i) => (
-      <div
-        key={i}
-        onClick={() => setCurrentImageIndex(i)}
-        className={`cursor-pointer w-2.5 h-2.5 rounded-full ${
-          i === currentImageIndex ? 'bg-white scale-125' : 'bg-white/60'
-        }`}
-      ></div>
-    ))}
-  </div>
-</div>
+      <ImageScroller pg={pg}/>
 
 
         {/* PG Name + Badge */}
