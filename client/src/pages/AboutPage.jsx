@@ -58,7 +58,7 @@ const AboutSection = () => (
                     <img 
                         src="https://ik.imagekit.io/tanmoycodes/PGHunter.png?updatedAt=1752302407422" 
                         alt="Modern student accommodation" 
-                        className="w-100 h-auto object-cover scale-[1.4] rounded-4xl"
+                        className="w-70 h-auto object-cover scale-180 rounded-4xl"
                     />
                 </div>
             </div>
@@ -86,8 +86,8 @@ const TeamSection = () => {
 
     const allTeamMembers = [
         { name: 'Aditya Kumar', role: 'Founder & CEO', image: 'https://ik.imagekit.io/tanmoycodes/PgHunter/Aditya.png?updatedAt=1752413816705', linkedinUrl: 'https://linkedin.com/in/adityakumar001' },
-        { name: 'Karanjeet Kumar', role: 'Founder and Head of Operations', image: 'https://ik.imagekit.io/tanmoycodes/PgHunter/Karan.png?updatedAt=1752401866256', linkedinUrl: 'https://www.linkedin.com/in/k4karan' },
         { name: 'Tanmoy Debnath', role: 'Founder & CTO', image: 'https://ik.imagekit.io/tanmoycodes/Tanmoy%20Image.png?updatedAt=1751476499338', linkedinUrl: 'https://www.linkedin.com/in/tanmoy-dev/' },
+        { name: 'Karanjeet Kumar', role: 'Founder and Head of Operations', image: 'https://ik.imagekit.io/tanmoycodes/PgHunter/Karan.png?updatedAt=1752401866256', linkedinUrl: 'https://www.linkedin.com/in/k4karan' },
         { name: 'Rohit Kumar', role: 'Backend Engineer', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=RK', linkedinUrl: 'https://www.linkedin.com/in/rohit-kumar111/' },
         { name: 'Aman Kumar', role: 'Marketing Director', image: 'https://placehold.co/128x128/f3e8ff/9333ea?text=AK', linkedinUrl: 'https://www.linkedin.com/in/aman181/' },
         ,
@@ -172,7 +172,7 @@ const UspSection = () => (
             <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Our USP</h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                    What makes LPUStay the #1 choice for students.
+                    What makes PGHunter the #1 choice for students.
                 </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
