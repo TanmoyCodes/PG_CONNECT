@@ -56,7 +56,7 @@ const AboutSection = () => (
                 </div>
                 <div className="relative h-64 md:h-full">
                     <img 
-                        src="https://placehold.co/600x400/3B82F6/FFFFFF?text=LPUStay+Vibes" 
+                        src="https://placehold.co/600x400/3B82F6/FFFFFF?text=LPUStay+Vibeshttps://ik.imagekit.io/tanmoycodes/PGHunter.png?updatedAt=1752302407422" 
                         alt="Modern student accommodation" 
                         className="w-full h-full object-cover rounded-2xl shadow-xl"
                     />
@@ -85,14 +85,12 @@ const TeamSection = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const allTeamMembers = [
-        { name: 'Aarav Sharma', role: 'Founder & CEO', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=AS', linkedinUrl: '#' },
-        { name: 'Priya Singh', role: 'Head of Operations', image: 'https://placehold.co/128x128/ddd6fe/5b21b6?text=PS', linkedinUrl: '#' },
-        { name: 'Rohan Mehta', role: 'Lead Developer', image: 'https://placehold.co/128x128/e9d5ff/7e22ce?text=RM', linkedinUrl: '#' },
-        { name: 'Sneha Gupta', role: 'Marketing Director', image: 'https://placehold.co/128x128/f3e8ff/9333ea?text=SG', linkedinUrl: '#' },
-        { name: 'Vikram Reddy', role: 'Backend Engineer', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=VR', linkedinUrl: '#' },
-        { name: 'Anjali Kaur', role: 'UI/UX Designer', image: 'https://placehold.co/128x128/ddd6fe/5b21b6?text=AK', linkedinUrl: '#' },
-        { name: 'Karan Desai', role: 'Customer Success', image: 'https://placehold.co/128x128/e9d5ff/7e22ce?text=KD', linkedinUrl: '#' },
-        { name: 'Meera Iyer', role: 'Data Analyst', image: 'https://placehold.co/128x128/f3e8ff/9333ea?text=MI', linkedinUrl: '#' },
+        { name: 'Aditya Kumar', role: 'Founder & CEO', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=AS', linkedinUrl: '#' },
+        { name: 'Karanjeet Singh', role: 'Founder & Head of Operations', image: 'https://placehold.co/128x128/ddd6fe/5b21b6?text=PS', linkedinUrl: '#' },
+        { name: 'Tanmoy Debnath', role: 'Founder & CTO', image: 'https://placehold.co/128x128/e9d5ff/7e22ce?text=RM', linkedinUrl: '#' },
+        { name: 'Rohit Kumar', role: 'Backend Engineer', image: 'https://placehold.co/128x128/c7d2fe/3730a3?text=VR', linkedinUrl: '#' },
+        { name: 'Aman Kumar', role: 'Marketing Director', image: 'https://placehold.co/128x128/f3e8ff/9333ea?text=SG', linkedinUrl: '#' },
+        ,
     ];
     
     const featuredMembers = allTeamMembers.slice(0, 4);
@@ -252,19 +250,7 @@ const WhyChooseUsSection = () => (
     </section>
 );
 
-const ContactSection = () => {
-    const [status, setStatus] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setStatus('sending');
-        // Simulate API call
-        setTimeout(() => {
-            setStatus('sent');
-            e.target.reset();
-            setTimeout(() => setStatus(''), 3000);
-        }, 1500);
-    };
 
     return (
         <section id="contact" className="py-16 md:py-24 bg-blue-600 text-white">
@@ -314,7 +300,7 @@ export default function App() {
         <WhatWeDoSection />
         <UspSection />
         <WhyChooseUsSection />
-        <ContactSection />
+        
       </main>
     </div>
   );

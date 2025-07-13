@@ -27,7 +27,7 @@ const Header = ({ onLoginClick }) => {
   List Your PG
 </Link>
 
-          <Link to="/contact" className="text-gray-600 hover:text-red-600">Contact</Link>
+          <Link to="/contact" className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300">Contact</Link>
 
           {/*<button
             onClick={onLoginClick}
@@ -50,9 +50,9 @@ const Header = ({ onLoginClick }) => {
   <Link to="/" className="block px-6 py-3 text-gray-600 hover:bg-gray-100">Home</Link>
   <Link to="/listings" className="block px-6 py-3 text-gray-600 hover:bg-gray-100">Listings</Link>
   <Link to="/about" className="block px-6 py-3 text-gray-600 hover:bg-gray-100">About Us</Link>
-  <Link to="/contact" className="block px-6 py-3 text-gray-600 hover:bg-gray-100">Contact</Link>
+  <Link to="/contact" className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300">Contact Us</Link>
 </div>
-          <div className="px-6 py-3">
+          {/*<div className="px-6 py-3">
             <button
               onClick={() => {
                 onLoginClick();
@@ -62,7 +62,7 @@ const Header = ({ onLoginClick }) => {
             >
               Login
             </button>
-          </div>
+          </div>*/}
         </div>
       )}
     </header>
