@@ -25,31 +25,16 @@ const registerUser = async (req, res) => {
 
         await newUser.save();
 
-        // Create JWT token
-        const payload = {
-            name: newUser.name,
-            email: newUser.email,
-            id: newUser._id,
-        };
+      
 
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
-
-        // Set cookie
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: true,
-            sameSite:'None',
-            maxAge: 3 * 60 * 60 * 1000, // 3 hours
-        });
-
-        const userResponse = { ...newUser._doc };
-        delete userResponse.password;
+        newUser.password = undefined; // Remove password from response
 
         return res.status(201).json({
             message: 'User registered successfully',
             success: true,
-            user: userResponse,
+            user: newUser,
         });
+
     } catch (error) {
         console.error('Error registering user:', error);
         return res.status(500).json({ message: 'Internal server error' });
