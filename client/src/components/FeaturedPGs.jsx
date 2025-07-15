@@ -12,41 +12,47 @@ const FeaturedPGs = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-      const fetchPGs = async () => {
-        try {
-          setLoading(true);
-          const res = await axios.get(`${apiUrl}/api/v1/pg/allpg`)
-          const data=res.data.data;
-          setPgData(data);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching PG listings:", error);
-          setError("Failed to load PG listings."); 
-          setError(true);
-        }
-      };  
-  
-      fetchPGs();
-    }, []);
+    const fetchPGs = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${apiUrl}/api/v1/pg/allpg`);
+        const data = res.data.data;
+        setPgData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching PG listings:", error);
+        setError("Failed to load PG listings.");
+        setLoading(false);
+      }
+    };
 
-  const featuredPGs = pgData ||[];
+    fetchPGs();
+  }, []);
+
+  // ✅ Filter featured, sort by id_room asc, take top 9
+  const featuredAndSortedPGs = (pgData || [])
+    .filter(pg => pg.isFeatured)
+    .sort((a, b) => Number(a.id_room) - Number(b.id_room))
+    .slice(0, 9);
 
   return (
     <section className="px-6 py-12 bg-gray-50">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Featured PGs</h2>
 
       {loading ? (
-        <Loader/>
+        <Loader />
       ) : error ? (
         <p className="text-center text-red-500">{error}</p>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {
-              featuredPGs.length>0?featuredPGs.map((pg,idx) => (
+            {featuredAndSortedPGs.length > 0 ? (
+              featuredAndSortedPGs.map((pg, idx) => (
                 <ListingCard key={idx} pg={pg} />
-              )):<div></div>
-            }
+              ))
+            ) : (
+              <p className="text-center col-span-full">No featured PGs available.</p>
+            )}
           </div>
 
           <div className="text-center mt-12">
