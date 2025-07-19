@@ -1,9 +1,17 @@
 import React, { useState, useMemo } from 'react';
-import { PlusCircle, Trash2, Edit, Search, Building, ShieldCheck, ShieldOff, DollarSign, ArrowDownUp, Star, Home, LayoutDashboard, AlertTriangle, Loader2 } from 'lucide-react';
+import axios from 'axios';
+import {
+  PlusCircle,
+  Trash2,
+  Edit,
+  Building,
+  ShieldCheck,
+  ShieldOff,
+  DollarSign,
+  AlertTriangle,
+} from 'lucide-react';
 
-
-
-
+// Confirmation Modal Component
 const ConfirmationModal = ({ modal, setModal, onConfirm }) => {
   if (!modal.isOpen) return null;
   const isConfirmationValid = modal.type !== 'soldOut' || modal.userInput === modal.confirmationWord;
@@ -45,6 +53,7 @@ const ConfirmationModal = ({ modal, setModal, onConfirm }) => {
   );
 };
 
+// Stats Card Component
 const StatCard = ({ title, value, icon, color }) => (
   <div className="bg-white p-6 rounded-2xl shadow-lg flex items-center space-x-4">
     <div className={`p-4 rounded-full ${color}`}>{icon}</div>
@@ -55,6 +64,7 @@ const StatCard = ({ title, value, icon, color }) => (
   </div>
 );
 
+// Main Admin Dashboard Component
 const AdminDashboard = ({ setView, pgData, setPgData }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [modal, setModal] = useState({ isOpen: false });
@@ -81,13 +91,35 @@ const AdminDashboard = ({ setView, pgData, setPgData }) => {
     });
   };
 
-  const handleConfirmAction = () => {
+  const handleConfirmAction = async () => {
+    const apiUrl = import.meta.env.VITE_API_BASE_URL;
     const { type, pgId } = modal;
+
     if (type === 'soldOut') {
-      setPgData(prev => prev.map(pg => pg.id_room === pgId ? { ...pg, soldOut: !pg.soldOut } : pg));
+      try {
+        const currentPg = pgData.find(pg => pg.id_room === pgId);
+        const updatedStatus = !currentPg.soldOut;
+
+        const response = await axios.put(`${apiUrl}/api/v1/pg/update`, {
+          _id: currentPg._id,
+          soldOut: updatedStatus,
+        },{withCredentials:true});
+
+        if (response.status === 200) {
+          setPgData(prev =>
+            prev.map(pg =>
+              pg.id_room === pgId ? { ...pg, soldOut: updatedStatus } : pg
+            )
+          );
+        }
+      } catch (error) {
+        console.error("Failed to update PG status:", error);
+        alert("Failed to update PG status. Please try again.");
+      }
     } else if (type === 'delete') {
       setPgData(prev => prev.filter(pg => pg.id_room !== pgId));
     }
+
     setModal({ isOpen: false });
   };
 
@@ -95,6 +127,7 @@ const AdminDashboard = ({ setView, pgData, setPgData }) => {
     <div className="space-y-8">
       <ConfirmationModal modal={modal} setModal={setModal} onConfirm={handleConfirmAction} />
 
+      {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Total PGs" value={stats.total} icon={<Building size={24} className="text-white" />} color="bg-blue-500" />
         <StatCard title="Active" value={stats.active} icon={<ShieldCheck size={24} className="text-white" />} color="bg-green-500" />
@@ -102,15 +135,15 @@ const AdminDashboard = ({ setView, pgData, setPgData }) => {
         <StatCard title="Commission" value={`₹${stats.totalCommission.toLocaleString('en-IN')}`} icon={<DollarSign size={24} className="text-white" />} color="bg-yellow-500" />
       </div>
 
+      {/* PG Listings Table */}
       <div className="bg-white p-6 rounded-2xl shadow-lg">
-
-        
         <div className="flex justify-between mb-4">
           <h2 className="text-xl font-bold">Manage PG Listings</h2>
           <button onClick={() => setView('add-pg')} className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-700">
             <PlusCircle size={20} /> Add PG
           </button>
         </div>
+
         <div className="mb-4">
           <input
             type="text"
@@ -120,6 +153,7 @@ const AdminDashboard = ({ setView, pgData, setPgData }) => {
             className="w-full border border-gray-300 rounded-lg py-2 px-4"
           />
         </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -158,6 +192,5 @@ const AdminDashboard = ({ setView, pgData, setPgData }) => {
     </div>
   );
 };
-
 
 export default AdminDashboard;

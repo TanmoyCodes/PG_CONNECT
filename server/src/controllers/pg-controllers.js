@@ -195,10 +195,38 @@ async function uploadImageController(req, res) {
 }
 
 
+async function updatePG(req, res) {
+  try {
+    const data=req.body;
+    const pgId = data._id;
+    if (!pgId) {
+      return res.status(400).json({ message: 'PG ID is required', success: false });
+    }
+    const updateData = await PgModel.findByIdAndUpdate(pgId,data);
+
+    res.json(200).json({
+      message: 'PG updated successfully',
+      data: updateData,
+      success: true,
+    });
+    
+  } catch (error) {
+    if( error.name === 'ValidationError') {
+      return res.status(400).json({ message: error.message, success: false });
+    }
+    res.status(500).json({
+      message: 'Internal server error',
+      success: false,
+    });
+  }
+}
+
+
 
 module.exports = {
   getAllPGs,
   getPGById,
   createPG,
-  uploadImageController
+  uploadImageController,
+  updatePG
 };

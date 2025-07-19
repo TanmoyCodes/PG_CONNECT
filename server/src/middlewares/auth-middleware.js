@@ -11,7 +11,8 @@ const authMiddleware =(req, res, next) => {
     if(!user){
       return res.status(401).json({ message: 'Unauthorized' });
     }
-    req.userId = user.id; 
+
+    req.user=user;
 
     next(); // If verification is successful, proceed to the next middleware or route handler
     
@@ -22,7 +23,17 @@ const authMiddleware =(req, res, next) => {
 }
 
 
+const isAdmin = (req, res, next) => {
+  const user = req.user; // Assuming user is set by authMiddleware
+  if (user.role=='admin') {
+    next();
+  } else {
+    return res.status(403).json({ message: 'Forbidden: Admin access required' });
+  }
+};
+
 
 module.exports = {
-    authMiddleware: authMiddleware
+    authMiddleware: authMiddleware,
+    isAdmin:isAdmin
 };

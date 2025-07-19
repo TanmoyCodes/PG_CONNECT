@@ -59,6 +59,7 @@ const loginUser = async (req, res) => {
             name: user.name,
             email: user.email,
             id: user._id,
+            role: user.role,
         };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
@@ -86,15 +87,7 @@ const loginUser = async (req, res) => {
 
 const checkAdmin = async (req, res) => {
     try {
-        const userId = req.userId;
-        if (!userId) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-
-        const user = await UserModel.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+        const user = req.user; // Assuming user is set by authMiddleware
 
         if (user.role !== 'admin') {
             return res.status(403).json({ message: 'Access denied. Admins only.' });
