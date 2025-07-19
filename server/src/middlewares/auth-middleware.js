@@ -16,7 +16,7 @@ const authMiddleware =(req, res, next) => {
     next(); // If verification is successful, proceed to the next middleware or route handler
     
    } catch (error) {
-    console.error('Authentication error:', error);
+    console.error('Authentication error:', error.message);
     return res.status(500).json({ message: 'Internal Server Error', error: error.message });
    }
 }
