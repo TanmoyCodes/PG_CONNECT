@@ -4,7 +4,6 @@ import axios from 'axios';
 import TakeImage from '../components/TakeImage';
 
 // --- UI COMPONENTS (Moved Outside of App) ---
-
 // InputField Component
 const InputField = ({ id, label, icon, ...props }) => (
   <div>
@@ -127,22 +126,6 @@ export default function App() {
     }
   };
 
-  const handleFileSelect = (id, file) => {
-    if (!file) return;
-    const previewUrl = URL.createObjectURL(file);
-    setImageUploads(prev => prev.map(up =>
-      up.id === id ? { ...up, file, preview: previewUrl, error: null } : up
-    ));
-  };
-
-  const addImageField = () => {
-    setImageUploads(prev => [...prev, { id: Date.now(), file: null, preview: null, error: null, isLoading: false, isUploaded: false }]);
-  };
-
-  const removeImageField = (id) => {
-    setImageUploads(prev => prev.filter(up => up.id !== id));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -238,59 +221,7 @@ export default function App() {
           
           <div className="p-6 bg-white rounded-xl shadow-md">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Property Images <span className="text-red-500">*</span></h3>
-            {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {imageUploads.map((upload) => (
-                <div key={upload.id} className="relative aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-gray-400 flex-col group">
-                  <input
-                    type="file"
-                    accept="image/png, image/jpeg, image/webp"
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                    onChange={(e) => handleFileSelect(upload.id, e.target.files[0])}
-                    disabled={upload.isLoading || upload.isUploaded}
-                  />
-                  {!upload.preview && !upload.isLoading && <UploadCloud size={32} />}
-                  {upload.preview && <img src={upload.preview} alt="preview" className="w-full h-full object-cover rounded-md" />}
 
-                  {upload.isLoading && (
-                    <div className="absolute inset-0 bg-white/70 flex flex-col items-center justify-center rounded-md">
-                        <Loader2 className="animate-spin text-indigo-600" size={32}/>
-                        <p className="text-sm font-medium text-indigo-600 mt-2">Uploading...</p>
-                    </div>
-                  )}
-
-                  {upload.isUploaded && (
-                    <div className="absolute inset-0 bg-green-500/80 flex flex-col items-center justify-center rounded-md text-white">
-                        <CheckCircle2 size={32}/>
-                        <p className="text-sm font-bold mt-2">Uploaded</p>
-                    </div>
-                  )}
-                  
-                  {upload.error && (
-                    <div className="absolute bottom-0 w-full bg-red-500/80 p-1 rounded-b-md text-white text-xs text-center">
-                        {upload.error}
-                    </div>
-                  )}
-                  
-                  { (upload.file || upload.isUploaded) && !upload.isLoading && (
-                      <button 
-                        type="button" 
-                        onClick={() => removeImageField(upload.id)}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full z-20 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                          <Trash2 size={16}/>
-                      </button>
-                  )}
-                </div>
-              ))}
-               <button 
-                 type="button" 
-                 onClick={addImageField} 
-                 className="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-50 hover:text-indigo-600 transition-colors"
-                 title="Add another image"
-               >
-                 <PlusCircle size={32} />
-               </button>
-            </div> */}
             <TakeImage image={imageUploads} setImage={setImageUploads} />
              <p className="text-xs text-gray-500 mt-4">At least one image is required. Click on the placeholder to select a file.</p>
           </div>
@@ -346,9 +277,17 @@ export default function App() {
                  <label className="flex items-center space-x-2 text-gray-700 cursor-pointer">
                     <input type="checkbox" name="soldOut" checked={formData.soldOut} onChange={handleCheckboxChange} className="h-5 w-5 rounded"/><span>Sold Out</span>
                 </label>
-                <label className="flex items-center space-x-2 text-gray-700 cursor-pointer">
-                    <input type="checkbox" name="isCoupleFriendly" checked={formData.isCoupleFriendly} onChange={handleCheckboxChange} className="h-5 w-5 rounded"/><span>Couple Friendly</span>
-                </label>
+               <label className="flex items-center space-x-2 text-gray-700 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="coupleFriendly"
+                  checked={formData.houseRules.coupleFriendly}
+                  data-section="houseRules"
+                  onChange={handleCheckboxChange}
+                  className="h-5 w-5 rounded"
+                />
+                <span>Couple Friendly</span>
+              </label>
                 <label className="flex items-center space-x-2 text-gray-700 cursor-pointer">
                     <input type="checkbox" name="isInternationalFriendly" checked={formData.isInternationalFriendly} onChange={handleCheckboxChange} className="h-5 w-5 rounded"/><span>Int'l Friendly</span>
                 </label>
