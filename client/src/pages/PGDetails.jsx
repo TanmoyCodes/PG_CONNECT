@@ -252,7 +252,7 @@ const prevImage = () =>
   {/* International Friendly */}
   <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${pg.isInternationalFriendly ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
     <Globe size={16} />
-    {pg.isInternationalFriendly ? 'C Form' : 'No C Form'}
+    {pg.isInternationalFriendly ? 'C Form Available' : 'C Form Unavailable'}
   </span>
 
   {/* Pet Friendly */}
