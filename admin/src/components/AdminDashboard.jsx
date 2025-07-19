@@ -78,7 +78,7 @@ const AdminDashboard = ({ setView, pgData, setPgData }) => {
   }, [pgData]);
 
   const openModal = (type, pgId, pgName) => {
-    const words = ['confirm', 'sold', 'done'];
+    const words = ['confirm', 'soldOut', 'done'];
     const word = words[Math.floor(Math.random() * words.length)];
     setModal({
       isOpen: true,
@@ -100,11 +100,12 @@ const AdminDashboard = ({ setView, pgData, setPgData }) => {
         const currentPg = pgData.find(pg => pg.id_room === pgId);
         const updatedStatus = !currentPg.soldOut;
 
-        const response = await axios.put(`${apiUrl}/api/v1/pg/update`, {
+        const response = await axios.patch(`${apiUrl}/api/v1/pg/update`, {
           _id: currentPg._id,
           soldOut: updatedStatus,
         },{withCredentials:true});
 
+        // console.log(response);
         if (response.status === 200) {
           setPgData(prev =>
             prev.map(pg =>

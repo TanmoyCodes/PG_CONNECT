@@ -12,7 +12,7 @@ router.post("/createpg", PgController.createPG);
 //  api/v1/pgallpg
 router.get("/allpg", PgController.getAllPGs);
 
-router.get("/update",authMiddleware,isAdmin, PgController.getAllPGs);
+router.patch("/update",authMiddleware,isAdmin, PgController.updatePG);
 
 
 // 🔧 Add this route to get a single PG by ID
