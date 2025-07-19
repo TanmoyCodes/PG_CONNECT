@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PlusCircle, Trash2, BedDouble, User, Building, Landmark, Ruler, Coins, Zap, Clock, Calendar, UserCog, Bot, IndianRupee, UploadCloud, Loader2, CheckCircle2 } from 'lucide-react';
 import axios from 'axios';
+import TakeImage from '../components/TakeImage';
 
 // --- UI COMPONENTS (Moved Outside of App) ---
 
@@ -237,7 +238,7 @@ export default function App() {
           
           <div className="p-6 bg-white rounded-xl shadow-md">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Property Images <span className="text-red-500">*</span></h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {imageUploads.map((upload) => (
                 <div key={upload.id} className="relative aspect-square border-2 border-dashed rounded-lg flex items-center justify-center text-gray-400 flex-col group">
                   <input
@@ -289,7 +290,8 @@ export default function App() {
                >
                  <PlusCircle size={32} />
                </button>
-            </div>
+            </div> */}
+            <TakeImage image={imageUploads} setImage={setImageUploads} />
              <p className="text-xs text-gray-500 mt-4">At least one image is required. Click on the placeholder to select a file.</p>
           </div>
           
