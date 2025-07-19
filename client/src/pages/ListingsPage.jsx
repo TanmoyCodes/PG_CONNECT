@@ -76,7 +76,7 @@ const ListingsPage = () => {
 
         {/* Sidebar Filters (Left on md+, Top on mobile) */}
         <aside>
-          <div className="bg-white p-4 rounded-lg shadow-md sticky top-4">
+          <div className="bg-white p-4 rounded-lg shadow-md sticky top-5">
             <h3 className="text-lg font-semibold mb-4 text-center md:text-left">Filters</h3>
 
             <div className="mb-4">
