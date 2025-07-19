@@ -312,7 +312,7 @@ export default function App() {
                <div className="flex items-center pt-6">
                    <label className="flex items-center space-x-2 text-gray-700 cursor-pointer text-lg">
                        <input type="checkbox" name="isPublished" checked={formData.isPublished} onChange={handleCheckboxChange} className="h-5 w-5 rounded"/>
-                       <span>Publish this listing immediately</span>
+                       <span>Publish this listing immediately </span>
                    </label>
                </div>
              </div>
