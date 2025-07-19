@@ -29,7 +29,7 @@ const Header = ({ onLoginClick }) => {
           <Link to="/listings" className="text-gray-600 hover:text-red-600">Listings</Link>
           <Link to="/about" className="text-gray-600 hover:text-red-600">About Us</Link>
           <Link
-            to={`https://wa.me/919863258533?text=${encodeURIComponent('Hello admin, I want to list my PG in your website.')}`}
+            to={`https://wa.me/919774728561?text=${encodeURIComponent('Hello admin, I want to list my PG in your website.')}`}
             className="text-gray-600 hover:text-red-600"
             target="_blank"
             rel="noopener noreferrer"
