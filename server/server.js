@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 4000;
 const DB = require('./src/config/database')
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
+require('./src/utils/emailHelpers'); // Import email helpers to initialize the transporter
 
 app.use(express.json());
 const cors = require('cors');

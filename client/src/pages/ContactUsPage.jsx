@@ -26,7 +26,7 @@ const ContactUs = () => {
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setFeedbackMessage('');
@@ -45,6 +45,13 @@ const ContactUs = () => {
 
     // --- Mock submission ---
     console.log('Form Data Submitted:', formData);
+
+    try {
+      const res=await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/contactus`, formData);
+    } catch (error) {
+      console.log(error.message);
+      alert('Error sending message. Please try again later.');
+    }
 
     setTimeout(() => {
       setIsSubmitting(false);
