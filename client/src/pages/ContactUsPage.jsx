@@ -83,7 +83,7 @@ const ContactUs = () => {
                 <Phone size={24} className="flex-shrink-0 mr-4 mt-1" />
                 <div>
                   <h3 className="font-semibold text-lg">Call Us</h3>
-                  <a href="tel:+911234567890" className="text-red-200 hover:text-white transition-colors">+91 123 456 7890</a>
+                  <a href="tel:+911234567890" className="text-red-200 hover:text-white transition-colors">+91 9774728561</a>
                 </div>
               </div>
             </div>
