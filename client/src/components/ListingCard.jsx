@@ -102,10 +102,10 @@ const ListingCard = ({ pg }) => {
 
           {/* PG ID and Name Row */}
           <div className="flex items-center justify-between mb-1">
-            <h3 className="text-xl font-bold text-gray-800 truncate">{pg.name}</h3>
-            <div className="ml-3 text-xs font-medium text-white bg-gray-400 px-2 py-0.5 rounded whitespace-nowrap">
+            <h3 className="text-xl font-bold text-gray-800 truncate">Cave No: #{pg.id_room}</h3>
+            {/*<div className="ml-3 text-xs font-medium text-white bg-gray-400 px-2 py-0.5 rounded whitespace-nowrap">
               Room ID: {pg.id_room}
-            </div>
+            </div>*/}
           </div>
 
           <div className="flex items-center text-gray-600 mb-4">

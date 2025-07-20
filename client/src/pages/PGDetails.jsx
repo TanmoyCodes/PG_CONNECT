@@ -90,7 +90,7 @@ const prevImage = () =>
                 For {pg.gender}
               </span>
               <div className="flex items-center flex-wrap gap-2">
-                <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">{pg.name}</h1>
+                <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">Cave No: #{pg.id_room}</h1>
                 {pg.is_featured && (
                   <span className="bg-yellow-400 text-white text-sm font-semibold px-3 py-1 rounded-full shadow">
                     Featured
