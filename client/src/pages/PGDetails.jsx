@@ -294,8 +294,7 @@ const prevImage = () =>
 </a>
 
       <a
-  href={`https://wa.me/919774728561?text=${encodeURIComponent(`Hello Hunter, I am interested in the 
-    \n*${pg.name}*,\n*PG ID: ${pg.id_room}*\nlocated at *${pg.area}, ${pg.location}.*\nPlease check the availability.\n Here is the link: /https://www.pghunter.in/pg/${pg._id}`)}`}
+  href={`https://wa.me/919774728561?text=${encodeURIComponent(`Hello Hunter, I am interested in the *PG ID: ${pg.id_room}*\nlocated at *${pg.area}, ${pg.location}.*\nPlease check the availability.\n Here is the link: /https://www.pghunter.in/pg/${pg._id}`)}`}
 
   target="_blank"
   rel="noopener noreferrer"
