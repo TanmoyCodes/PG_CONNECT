@@ -44,7 +44,7 @@ const TeamMemberCard = ({ image, name, role, linkedinUrl }) => (
 const AboutSection = () => (
     <section id="about" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="grid md:grid-cols-2 gap-12 items-center justify-center">
                 <div className="text-center md:text-left">
                     <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">About PGHunter.in</h2>
                     <p className="text-lg text-gray-600 mb-6">
@@ -54,11 +54,11 @@ const AboutSection = () => (
                         Our platform connects students with verified, high-quality accommodations, from PGs to apartments, ensuring safety, comfort, and convenience. We're more than just a listing service; we're your trusted partner in your academic journey.
                     </p>
                 </div>
-                <div className="relative h-64 md:h-full">
+                <div className="relative h-60 md:h-full">
                     <img 
                         src="https://ik.imagekit.io/tanmoycodes/PGHunter.png?updatedAt=1752302407422" 
                         alt="Modern student accommodation" 
-                        className="w-70 h-auto object-cover scale-180 rounded-4xl"
+                        className=" h-auto object-cover scale-180 rounded-4xl"
                     />
                 </div>
             </div>
