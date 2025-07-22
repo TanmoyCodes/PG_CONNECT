@@ -8,20 +8,20 @@ const Header = ({ onLoginClick }) => {
     <header className="bg-white shadow-sm sticky top-0 z-40">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <div className="flex gap-2 items-center">
+        <Link className="flex items-center hover:opacity-85 transition-opacity duration-300" to="/">
           <img
             src="https://ik.imagekit.io/tanmoycodes/PGHunter.png?updatedAt=1752302407422"
             width="50"
             alt="icon"
           />
-          <a
-            href="/"
+          <h1
+           
             className="text-2xl font-bold text-red-600"
             style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800 }}
           >
             PG Hunter
-          </a>
-        </div>
+          </h1>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
