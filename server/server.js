@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 4000;
 const DB = require('./src/config/database')
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
-require('./src/utils/emailHelpers'); // Import email helpers to initialize the transporter
+
 
 app.use(express.json());
 const cors = require('cors');
@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended:true}))
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://www.pghunter.in','https://adminpgconnect.vercel.app','https://pg-connect-chi.vercel.app/'],
+    origin: ['http://localhost:5173', 'https://www.pghunter.in','https://adminpgconnect.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     secure:process.env.PROD=='production',
     credentials: true, // This allows cookies to be sent
