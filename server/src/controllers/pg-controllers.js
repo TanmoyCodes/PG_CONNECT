@@ -108,7 +108,7 @@ async function createPG(req, res) {
 
 async function getAllPGs(req, res) {
   try {
-    const pgs = await PgModel.find();
+    const pgs = await PgModel.find().select('-__v -createdAt -updatedAt -ownerName -ownerNumber -commission -caretakerNumber -caretakerName -name');
     res.status(200).json({message: 'PGs fetched successfully', data: pgs,success: true});
   } catch (error) {
     console.error('Error fetching PGs:', error);
@@ -118,7 +118,7 @@ async function getAllPGs(req, res) {
 
 async function getPGById(req, res) {
   try {
-    const pg = await PgModel.findById(req.params.id);
+    const pg = await PgModel.findById(req.params.id).select('-__v -createdAt -updatedAt -ownerName -ownerNumber -commission -caretakerNumber -caretakerName -name');
 
     if (!pg) {
       return res.status(404).json({ message: 'PG not found', success: false });
