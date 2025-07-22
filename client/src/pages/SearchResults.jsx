@@ -25,13 +25,13 @@ const SearchResult = () => {
 
   return pgData
     .filter((pg) => {
-      if (isAllDefault) return true; // Return all PGs if all filters are default
+      if (isAllDefault) return true; // Show all if all filters are default
 
       const matchesArea = selectedArea === "LPU Area" || pg.area === selectedArea;
       const matchesGender = 
-  gender === "Any" 
-    ? true 
-    : pg.gender === gender || pg.gender === "Any";
+        gender === "Any" 
+          ? true 
+          : pg.gender === gender || pg.gender === "Any";
       const matchesSeater = seater === "Any" || pg.seater === seater;
 
       // Price filter
@@ -49,10 +49,12 @@ const SearchResult = () => {
       return matchesArea && matchesGender && matchesSeater && matchesPrice;
     })
     .sort((a, b) => {
+      // Sort featured PGs first
       if (a.isFeatured === b.isFeatured) return 0;
       return a.isFeatured ? -1 : 1;
     });
 };
+
 
 
    useEffect(() => {
