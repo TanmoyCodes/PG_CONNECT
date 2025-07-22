@@ -128,7 +128,7 @@ const ListingCard = ({ pg }) => {
               </div>
             ))}
 
-            {pg.electricityPerUnit && (
+            {Number(pg.electricityPerUnit) > -1 && (
               <div className="flex items-center space-x-2">
                 <Zap size={16} className="text-red-500" />
                 <span>₹{pg.electricityPerUnit}/Unit</span>
