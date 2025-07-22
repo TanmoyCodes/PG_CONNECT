@@ -279,7 +279,7 @@ const prevImage = () =>
     <p className="mb-6 text-blue-100">Book your perfect room before it’s gone!</p>
     <div className="flex flex-col gap-3">
       <a
-  href="tel:9863258533"
+  href="tel:919774728561"
   className="w-full flex items-center justify-center bg-white text-blue-700 font-bold px-4 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
 >
   <svg
