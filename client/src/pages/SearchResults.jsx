@@ -28,7 +28,10 @@ const SearchResult = () => {
       if (isAllDefault) return true; // Return all PGs if all filters are default
 
       const matchesArea = selectedArea === "LPU Area" || pg.area === selectedArea;
-      const matchesGender = gender === "Any" || pg.gender === gender;
+      const matchesGender = 
+  gender === "Any" 
+    ? true 
+    : pg.gender === gender || pg.gender === "Any";
       const matchesSeater = seater === "Any" || pg.seater === seater;
 
       // Price filter
