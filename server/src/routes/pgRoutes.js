@@ -11,6 +11,7 @@ router.post("/createpg", PgController.createPG);
 // Existing route (get all PGs)
 //  api/v1/pgallpg
 router.get("/allpg", PgController.getAllPGs);
+router.get("/admin/allpg", PgController.getAdminAllPGs);
 
 router.patch("/update",authMiddleware,isAdmin, PgController.updatePG);
 

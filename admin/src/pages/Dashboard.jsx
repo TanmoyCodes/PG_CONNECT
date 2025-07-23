@@ -27,7 +27,7 @@ export default function App() {
 
     const getData=async()=>{
         try {
-            const res=await axios.get(`${apiUrl}/api/v1/pg/allpg`,{withCredentials:true});
+            const res=await axios.get(`${apiUrl}/api/v1/pg/admin/allpg`,{withCredentials:true});
             const data=res.data.data;
             setPgData(data);
             
