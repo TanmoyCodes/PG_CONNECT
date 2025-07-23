@@ -282,6 +282,7 @@ const prevImage = () =>
   href="tel:919774728561"
   className="w-full flex items-center justify-center bg-white text-blue-700 font-bold px-4 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
 >
+  
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="w-5 h-5 mr-2"
