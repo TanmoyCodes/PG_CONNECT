@@ -124,6 +124,8 @@ const AdminDashboard = ({ setView, pgData, setPgData }) => {
     setModal({ isOpen: false });
   };
 
+  
+
   return (
     <div className="space-y-8">
       <ConfirmationModal modal={modal} setModal={setModal} onConfirm={handleConfirmAction} />
