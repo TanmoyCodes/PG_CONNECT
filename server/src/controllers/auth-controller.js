@@ -62,13 +62,13 @@ const loginUser = async (req, res) => {
             role: user.role,
         };
 
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' });
 
         res.cookie('token', token, {
             httpOnly: true,
             secure: true,
             sameSite:'None',
-            maxAge: 12 * 60 * 60 * 1000, // 12 hours
+            maxAge: 5 * 60 * 60 * 1000, // 12 hours
         });
 
         const userResponse = { ...user._doc };
