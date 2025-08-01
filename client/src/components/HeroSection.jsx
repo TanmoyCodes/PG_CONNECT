@@ -16,7 +16,11 @@ const HeroSection = () => (
     {/* Foreground Content */}
     <div className="relative z-10 text-center mx-4">
       <h1 className="text-4xl md:text-6xl font-bold mb-4">Find Your Perfect PG, Hassle-Free</h1>
-      <p className="text-lg md:text-xl mb-8">Built for Vertos, Loved by Vertos – Discover Free PG Listings With Zero Brokerage Fees. </p>
+      <p className="text-lg md:text-xl mb-8">
+  Built for Vertos, Loved by Vertos – Discover Free PG Listings With{" "}
+  <span className="bg-yellow-300 px-1 rounded-sm">Zero Brokerage Fees.</span>
+</p>
+
       <SearchBar />
     </div>
   </section>
