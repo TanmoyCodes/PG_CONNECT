@@ -32,6 +32,7 @@ const Signup = () => {
         alert('Signup failed. Please try again.');
         throw new Error('Signup failed');
       }
+      
 
       setIsAuthenticated(true);
       alert('Signup successful!');
