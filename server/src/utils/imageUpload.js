@@ -18,12 +18,12 @@ function isFileTypeSupported(fileType, supportedTypes) {
 // Function to upload a file to ImageKit (with compression)
 async function uploadFileToImageKit(file, folder) {
     try {
-        const fileType = file.name.split('.').pop().toLowerCase();
-        const supportedTypes = ["jpg", "jpeg", "png"];
+        // const fileType = file.name.split('.').pop().toLowerCase();
+        // const supportedTypes = ["jpg", "jpeg", "png"];
 
-        if (!isFileTypeSupported(fileType, supportedTypes)) {
-            throw new Error("Unsupported file type.");
-        }
+        // if (!isFileTypeSupported(fileType, supportedTypes)) {
+        //     throw new Error("Unsupported file type.");
+        // }
 
         // ✅ Compress image using sharp
         const compressedBuffer = await sharp(file.data)
@@ -63,8 +63,8 @@ async function deleteFileFromImageKit(fileUrl) {
 
 async function imageUpload(file, existingImageUrl) {
     try {
-        const supportedTypes = ["jpg", "jpeg", "png"];
-        const fileType = file.name.split('.').pop().toLowerCase();
+        // const supportedTypes = ["jpg", "jpeg", "png"];
+        // const fileType = file.name.split('.').pop().toLowerCase();
 
         // Optional: validate file type
         // if (!isFileTypeSupported(fileType, supportedTypes)) {
