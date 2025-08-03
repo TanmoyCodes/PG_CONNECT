@@ -102,7 +102,7 @@ export default function App() {
   };
 
   const [formData, setFormData] = useState(initialState);
-  const [imageUploads, setImageUploads] = useState([{ id: Date.now(), file: null, preview: null, error: null, isLoading: false, isUploaded: false }]);
+  const [imageUploads, setImageUploads] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
