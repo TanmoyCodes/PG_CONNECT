@@ -30,11 +30,11 @@ const SearchBar = () => {
           <option value="Law Gate">Law Gate</option>
           <option value="Green Valley">Green Valley</option>
           <option value="Botany Colony">Bhutani Colony</option>
+          {/* <option value="Hardaspur">Hardaspur</option>
           <option value="Jazzy Properties">Jazzy Properties</option>
-          <option value="Hardaspur">Hardaspur</option>
-          <option value="Phagwara">Phagwara</option>
-          <option value="Nanak Nagri">Nanak Nagri</option>
-          <option value="Jalandhar">Jalandhar</option>
+  <option value="Phagwara">Phagwara</option>
+  <option value="Nanak Nagri">Nanak Nagri</option>
+  <option value="Jalandhar">Jalandhar</option> */}
         </select>
       </div>
 
