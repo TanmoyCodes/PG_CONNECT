@@ -35,6 +35,7 @@ const SearchBar = () => {
   <option value="Phagwara">Phagwara</option>
   <option value="Nanak Nagri">Nanak Nagri</option>
   <option value="Jalandhar">Jalandhar</option> */}
+
         </select>
       </div>
 
