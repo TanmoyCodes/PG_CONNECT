@@ -120,8 +120,8 @@ npm run build
 Developed with ❤️ by  
 
 - **Tanmoy Debnath**  
-  - 📧 Email: [rohitranjanrrsingh@gmail.com]  
-  - 🔗 Portfolio:[https://portfolio-rohit-kumars-projects-4484f538.vercel.app/] / LinkedIn: [https://www.linkedin.com/in/rohit-kumar111/]  
+  - 📧 Email: [tanmoy.code@gmail.com]  
+  - 🔗 Portfolio:[www.tanmoy.codes] / LinkedIn: [https://www.linkedin.com/in/tanmoy-dev/]  
 
 - **Rohit Kumar**  
   - 📧 Email: [rohitranjanrrsingh@gmail.com]  
