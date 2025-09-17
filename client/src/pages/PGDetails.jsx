@@ -122,7 +122,7 @@ const prevImage = () =>
                 </div>
                 <div className="p-2 flex flex-col justify-center items-center">
                   <div className="flex items-baseline font-bold text-2xl text-gray-800">{pg.distanceFromAuto}<span className="text-lg font-medium ml-1">m</span></div>
-                  <p className="text-sm text-gray-500 flex items-center"><Car size={14} className="mr-1" />from Auto</p>
+                  <p className="text-sm text-gray-500 flex items-center"><Car size={14} className="mr-1" />from AutoStand</p>
                 </div>
               </div>
             </div>
