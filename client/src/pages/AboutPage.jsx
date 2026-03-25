@@ -4,6 +4,7 @@ import { Briefcase, Users, Target, Eye, Heart, Send, Building2, Search, Smile, L
 // --- Helper Components ---
 
 
+
 // Card component for consistent styling
 const InfoCard = ({ icon, title, children, className }) => (
   <div className={`bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ${className}`}>
